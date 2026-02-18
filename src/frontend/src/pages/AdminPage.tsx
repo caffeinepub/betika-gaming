@@ -83,7 +83,7 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
+      {/* Page Header */}
       <div className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-6">
           <div>

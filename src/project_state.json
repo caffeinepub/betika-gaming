@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 17,
+  "projectStateVersion": 19,
   "summary": "Betting and casino app similar to BETIKA with casino games and live games",
   "architectural_notes": [
     "Multi-section app architecture: casino games, live games, and user profiles",
@@ -276,6 +276,38 @@
         "REQ-47"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-a-prominent-easy-to-find-login-button-to-the-main-application-interface-that-triggers-internet-identity-authentication-when-clicked",
+      "title": "Add a prominent, easy-to-find login button to the main application interface that triggers Internet Identity authentication when clicked",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-accessdeniedscreen-component-to-provide-a-more-streamlined-and-user-friendly-login-experience-with-clear-call-to-action-messaging",
+      "title": "Update the AccessDeniedScreen component to provide a more streamlined and user-friendly login experience with clear call-to-action messaging",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-persistent-login-state-indication-that-shows-the-user-they-are-logged-in-displaying-their-identity-information-or-a-user-menu-in-the-application-header",
+      "title": "Add persistent login state indication that shows the user they are logged in, displaying their identity information or a user menu in the application header",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-logout-option-that-is-easily-accessible-to-logged-in-users-allowing-them-to-sign-out-from-their-internet-identity-session",
+      "title": "Add a logout option that is easily accessible to logged-in users, allowing them to sign out from their Internet Identity session",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -393,6 +425,12 @@
       "reqIds": [
         "REQ-44"
       ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-40",
+      "summary": "Implement easy login system",
+      "reqIds": [],
       "status": "pending"
     }
   ],

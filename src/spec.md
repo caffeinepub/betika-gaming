@@ -1,13 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Implement automatic 20% tax deduction on both staked deposits and withdrawal amounts in the Betika Casino application.
+**Goal:** Implement an easy-to-use login system with prominent login/logout options and clear authentication state indication.
 
 **Planned changes:**
-- Add 20% tax calculation to backend deposit transactions, deducting tax before crediting user balance
-- Add 20% tax calculation to backend withdrawal/fund release process, deducting tax before payout
-- Display tax breakdown (gross amount, 20% tax, net amount) in user deposit interface
-- Display tax breakdown in admin fund release interface for pending payouts
-- Add tax amount and net payout columns to admin release history table
+- Add a prominent login button to the main application interface that triggers Internet Identity authentication
+- Update the AccessDeniedScreen component to provide a streamlined login experience with clear call-to-action messaging
+- Add persistent login state indication in the application header showing user identity or a user menu
+- Add an easily accessible logout option for logged-in users
 
-**User-visible outcome:** Users will see clear tax breakdowns showing 20% deductions when depositing funds (net 80% available for staking) and admins will see tax breakdowns when releasing winnings (net 80% paid out), with full transparency on all tax deductions in transaction histories.
+**User-visible outcome:** Users can easily log in using a prominent login button, see their authentication status in the application header, and log out when needed. The login experience is streamlined with clear messaging and visible authentication state.

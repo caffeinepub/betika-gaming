@@ -1,135 +1,93 @@
 {
   "kind": "build_request",
-  "title": "Implement 20% tax deduction on staked and withdrawal amounts",
+  "title": "Implement easy login system",
   "projectName": "Betika Casino",
-  "priority": "normal",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-42",
-      "text": "Add a 20% tax calculation field to the backend deposit transaction record type to store the tax amount deducted from each staked deposit",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-user-latest"
-        ],
-        "quotes": [
-          "Automate a tax of 20 % of the staked amount"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend transaction record includes a tax field storing 20% of the deposit amount",
-        "Tax amount is calculated automatically when a deposit is confirmed",
-        "Tax calculation is applied to the converted KES amount after currency conversion"
-      ]
-    },
-    {
-      "id": "REQ-43",
-      "text": "Update the deposit confirmation backend function to automatically deduct 20% tax from the deposited amount before crediting the user's effective balance",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-user-latest"
-        ],
-        "quotes": [
-          "Automate a tax of 20 % of the staked amount"
-        ]
-      },
-      "acceptanceCriteria": [
-        "When a deposit is confirmed, 20% of the amount is calculated as tax",
-        "The net amount (80% of deposit) is available to the user for staking",
-        "Tax amount is stored separately in the transaction record",
-        "Total funds in holding account 0116828013 include both net amount and tax"
-      ]
-    },
-    {
-      "id": "REQ-44",
-      "text": "Add a 20% tax calculation to the backend fund release function that deducts tax from withdrawal amounts when releasing winnings to users",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-user-latest"
-        ],
-        "quotes": [
-          "Automate a tax of 20 % of the staked amount and withdrawal amount"
-        ]
-      },
-      "acceptanceCriteria": [
-        "When admin releases winnings, 20% tax is automatically calculated",
-        "The net payout amount (80% of winnings) is recorded as released",
-        "Tax amount is tracked separately in the winning record",
-        "Fund release confirmation shows both gross amount and net amount after tax"
-      ]
-    },
-    {
-      "id": "REQ-45",
-      "text": "Update the DepositSection frontend component to display the tax breakdown showing the deposited amount, 20% tax deduction, and net amount available for staking",
+      "id": "REQ-48",
+      "text": "Add a prominent, easy-to-find login button to the main application interface that triggers Internet Identity authentication when clicked",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-latest"
+          "msg-user-final"
         ],
         "quotes": [
-          "Automate a tax of 20 % of the staked amount"
+          "Allow for the  easy log in"
         ]
       },
       "acceptanceCriteria": [
-        "Deposit interface shows gross deposit amount entered by user",
-        "Tax amount (20% of deposit) is displayed clearly",
-        "Net amount available for staking (80% of deposit) is prominently shown",
-        "Tax breakdown appears before user confirms the deposit"
+        "Login button is prominently visible on the main application interface",
+        "Clicking the login button initiates the Internet Identity authentication flow",
+        "Button uses clear, user-friendly text like 'Login' or 'Sign In'",
+        "Button styling is consistent with the Betika green theme"
       ]
     },
     {
-      "id": "REQ-46",
-      "text": "Update the AdminFundsReleaseSection frontend component to display the tax breakdown for each payout showing the winning amount, 20% tax deduction, and net payout amount",
+      "id": "REQ-49",
+      "text": "Update the AccessDeniedScreen component to provide a more streamlined and user-friendly login experience with clear call-to-action messaging",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-latest"
+          "msg-user-final"
         ],
         "quotes": [
-          "withdrawal amount"
+          "Allow for the  easy log in"
         ]
       },
       "acceptanceCriteria": [
-        "Admin interface shows gross winning amount for each pending payout",
-        "Tax amount (20% of winnings) is displayed clearly",
-        "Net payout amount (80% of winnings) is shown as the amount to be released",
-        "Confirmation dialog includes tax breakdown before releasing funds"
+        "Login prompt uses simple, encouraging language that explains the benefit of logging in",
+        "Internet Identity login button is large, clearly visible, and easy to click",
+        "Screen design is clean and focused on the login action without unnecessary clutter"
       ]
     },
     {
-      "id": "REQ-47",
-      "text": "Update the release history data table in the admin interface to include tax amount and net payout columns for all completed fund releases",
+      "id": "REQ-50",
+      "text": "Add persistent login state indication that shows the user they are logged in, displaying their identity information or a user menu in the application header",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-latest"
+          "msg-user-final"
         ],
         "quotes": [
-          "withdrawal amount"
+          "Allow for the  easy log in"
         ]
       },
       "acceptanceCriteria": [
-        "Release history table shows gross winning amount column",
-        "Tax amount column displays 20% deduction for each release",
-        "Net payout column shows the actual amount released to the user",
-        "All amounts are displayed in KES with proper formatting"
+        "Logged-in users can see their authentication status in the application interface",
+        "User identity information or user menu is displayed in a consistent location (e.g., application header)",
+        "Login state persists across page refreshes using the existing useInternetIdentity hook"
+      ]
+    },
+    {
+      "id": "REQ-51",
+      "text": "Add a logout option that is easily accessible to logged-in users, allowing them to sign out from their Internet Identity session",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "Allow for the  easy log in"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Logout button or option is visible and accessible to logged-in users",
+        "Clicking logout successfully terminates the Internet Identity session",
+        "After logout, the application returns to a logged-out state with login options visible"
       ]
     }
   ],
   "constraints": [
-    "Tax rate must be exactly 20% for both deposits and withdrawals",
-    "Tax calculations must be applied to KES amounts after currency conversion",
-    "Existing transaction and winning records must remain intact during backend updates",
-    "Tax deductions must be transparent and visible to both users and admins"
+    "Must use the existing Internet Identity authentication system configured in useInternetIdentity.ts",
+    "Do not modify the authentication logic in useInternetIdentity.ts or useActor.ts",
+    "Login flow must integrate with the existing admin authorization system in the backend"
   ],
   "nonGoals": [
-    "Variable or configurable tax rates",
-    "Tax exemptions or special cases",
-    "Separate tax accounts or tax remittance features",
-    "Tax reporting or compliance documentation",
-    "Refunding of taxes on cancelled transactions"
+    "Implementing alternative authentication methods beyond Internet Identity",
+    "Adding social media login options",
+    "Creating a custom username/password authentication system",
+    "Implementing two-factor authentication"
   ],
   "imageRequirements": {
     "required": [],

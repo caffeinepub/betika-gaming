@@ -5,10 +5,10 @@ import Principal "mo:core/Principal";
 import OutCall "http-outcalls/outcall";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
-import Migration "migration";
+
 
 // Explicitly apply migration logic to remove unused persistent maps
-(with migration = Migration.run)
+
 actor {
   // Initialize the user system state
   let accessControlState = AccessControl.initState();

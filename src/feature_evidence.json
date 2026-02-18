@@ -2,10 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-depositsection-frontend-component-to-display-the-tax-breakdown-showing-the-deposited-amount-20-tax-deduction-and-net-amount-available-for-staking",
-      "featureTitle": "Update the DepositSection frontend component to display the tax breakdown showing the deposited amount, 20% tax deduction, and net amount available for staking",
+      "featureId": "feature-add-a-prominent-easy-to-find-login-button-to-the-main-application-interface-that-triggers-internet-identity-authentication-when-clicked",
+      "featureTitle": "Add a prominent, easy-to-find login button to the main application interface that triggers Internet Identity authentication when clicked",
       "files": [
-        "frontend/src/components/DepositSection.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/components/LoginButton.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -17,15 +18,15 @@
         "http-outcalls@3.0.0"
       ],
       "testIds": [
-        "REQ-45"
+        "REQ-48"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-adminfundsreleasesection-frontend-component-to-display-the-tax-breakdown-for-each-payout-showing-the-winning-amount-20-tax-deduction-and-net-payout-amount",
-      "featureTitle": "Update the AdminFundsReleaseSection frontend component to display the tax breakdown for each payout showing the winning amount, 20% tax deduction, and net payout amount",
+      "featureId": "feature-update-the-accessdeniedscreen-component-to-provide-a-more-streamlined-and-user-friendly-login-experience-with-clear-call-to-action-messaging",
+      "featureTitle": "Update the AccessDeniedScreen component to provide a more streamlined and user-friendly login experience with clear call-to-action messaging",
       "files": [
-        "frontend/src/components/AdminFundsReleaseSection.tsx"
+        "frontend/src/components/AccessDeniedScreen.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -37,15 +38,16 @@
         "http-outcalls@3.0.0"
       ],
       "testIds": [
-        "REQ-46"
+        "REQ-49"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-release-history-data-table-in-the-admin-interface-to-include-tax-amount-and-net-payout-columns-for-all-completed-fund-releases",
-      "featureTitle": "Update the release history data table in the admin interface to include tax amount and net payout columns for all completed fund releases",
+      "featureId": "feature-add-persistent-login-state-indication-that-shows-the-user-they-are-logged-in-displaying-their-identity-information-or-a-user-menu-in-the-application-header",
+      "featureTitle": "Add persistent login state indication that shows the user they are logged in, displaying their identity information or a user menu in the application header",
       "files": [
-        "frontend/src/pages/AdminPage.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/components/UserMenu.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -57,7 +59,28 @@
         "http-outcalls@3.0.0"
       ],
       "testIds": [
-        "REQ-47"
+        "REQ-50"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-logout-option-that-is-easily-accessible-to-logged-in-users-allowing-them-to-sign-out-from-their-internet-identity-session",
+      "featureTitle": "Add a logout option that is easily accessible to logged-in users, allowing them to sign out from their Internet Identity session",
+      "files": [
+        "frontend/src/components/LoginButton.tsx",
+        "frontend/src/components/UserMenu.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-51"
       ],
       "confidence": "high"
     }
