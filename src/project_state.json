@@ -1,16 +1,12 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 13,
-  "summary": "Betting and casino app similar to BETIKA with casino games, live games, and user profile functionality",
+  "projectStateVersion": 15,
+  "summary": "Betting and casino app similar to BETIKA with casino games and live games",
   "architectural_notes": [
     "Multi-section app architecture: casino games, live games, and user profiles",
     "Consider game state management for casino games",
-    "User authentication system needed for profiles",
-    "Phone-based authentication system with SMS verification",
     "Central payment account: 0116828013 receives all user deposits",
-    "User registration counter/analytics for total membership display",
     "Multi-currency support: automatic conversion from African currencies to KES",
-    "Pan-African phone number validation system",
     "M-PESA paybill updated to 400004"
   ],
   "known_issues": [],
@@ -215,6 +211,46 @@
         "REQ-35"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-remove-the-profile-page-route-and-profilepage-component-from-the-frontend-application",
+      "title": "Remove the profile page route and ProfilePage component from the frontend application",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-all-profile-related-components-including-profileheader-profiletabs-personalinfosection-bettinghistorysection-transactionhistorysection-settingssection-profilesetupmodal-and-phoneverificationmodal",
+      "title": "Remove all profile-related components including ProfileHeader, ProfileTabs, PersonalInfoSection, BettingHistorySection, TransactionHistorySection, SettingsSection, ProfileSetupModal, and PhoneVerificationModal",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-react-query-hooks-related-to-profile-operations-including-usegetuserprofile-usecreateuserprofile-useupdateuserprofile-useverifyphone-useresendverificationcode-and-usegettotalmembercount-from-usequeries-ts",
+      "title": "Remove React Query hooks related to profile operations including useGetUserProfile, useCreateUserProfile, useUpdateUserProfile, useVerifyPhone, useResendVerificationCode, and useGetTotalMemberCount from useQueries.ts",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-phone-validation-utilities-from-frontend-src-utils-phonevalidation-ts-as-they-are-only-used-by-profile-components",
+      "title": "Remove phone validation utilities from frontend/src/utils/phoneValidation.ts as they are only used by profile components",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-membercountcard-and-balancecard-components-as-they-are-only-used-in-the-profile-interface",
+      "title": "Remove MemberCountCard and BalanceCard components as they are only used in the profile interface",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -228,58 +264,6 @@
       "id": "AR-2",
       "summary": "Live games section",
       "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "User profile functionality with BETIKA-style features",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-7",
-      "summary": "Create backend data structures and functions to store and retrieve user profile information, betting history, and transaction records",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-8",
-      "summary": "Phone number registration with SMS verification code",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-9",
-      "summary": "Add phone number field to the user profile data model in backend/main.mo to store verified phone numbers",
-      "reqIds": [
-        "REQ-6"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-10",
-      "summary": "Create backend functions to generate and validate 6-digit verification codes for phone number registration",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-11",
-      "summary": "Add backend endpoint to initiate phone verification by accepting a phone number and returning a verification code",
-      "reqIds": [
-        "REQ-8"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-12",
-      "summary": "Add backend endpoint to complete phone verification by validating the submitted code and updating the user profile",
-      "reqIds": [
-        "REQ-9"
-      ],
       "status": "pending"
     },
     {
@@ -300,28 +284,6 @@
       "id": "AR-16",
       "summary": "Integrate M-PESA paybill 290290 for deposits linked to account 0116828013",
       "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-17",
-      "summary": "Display total number of registered members/users on the platform",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-19",
-      "summary": "Add backend function to retrieve the total count of registered users/members on the platform",
-      "reqIds": [
-        "REQ-20"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-21",
-      "summary": "Implement SMS verification code generation and delivery system in the backend that sends a 6-digit confirmation code to the registered phone number",
-      "reqIds": [
-        "REQ-24"
-      ],
       "status": "pending"
     },
     {
@@ -361,6 +323,14 @@
       "summary": "Implement automatic currency conversion logic in the backend that converts deposit amounts from the user's selected African currency to Kenyan Shillings (KES) using current exchange rates. Store both the original amount with currency and the converted KES amount in the transaction record.",
       "reqIds": [
         "REQ-31"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-34",
+      "summary": "Remove backend functions related to user profile management including getUserProfile, createUserProfile, updateUserProfile, verifyPhone, resendVerificationCode, and getTotalMemberCount",
+      "reqIds": [
+        "REQ-38"
       ],
       "status": "pending"
     }

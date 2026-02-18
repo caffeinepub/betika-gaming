@@ -1,98 +1,93 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-18T22:02:25.876Z",
+  "generatedAt": "2026-02-18T22:08:32.813Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 8,
-    "implemented": 7,
+    "total": 6,
+    "implemented": 5,
     "items": [
       {
-        "id": "REQ-28",
-        "summary": "Update phone number validation in frontend/src/utils/phoneValidation.ts to support phone numbers from all African countries, not just Kenya (Safaricom and Airtel). Include validation patterns for major African countries including Nigeria, South Africa, Ghana, Tanzania, Uganda, Rwanda, Ethiopia, Egypt, Morocco, and others.",
+        "id": "REQ-36",
+        "summary": "Remove the profile page route and ProfilePage component from the frontend application",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/utils/phoneValidation.ts"
+          "frontend/src/pages/ProfilePage.tsx",
+          "frontend/src/App.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/utils/phoneValidation.ts"
+          "frontend/src/pages/ProfilePage.tsx",
+          "frontend/src/App.tsx"
         ]
       },
       {
-        "id": "REQ-29",
-        "summary": "Update the phone number input fields in ProfileSetupModal and PhoneVerificationModal to accept and properly format phone numbers from all African countries, removing Kenya-specific validation constraints.",
+        "id": "REQ-37",
+        "summary": "Remove all profile-related components including ProfileHeader, ProfileTabs, PersonalInfoSection, BettingHistorySection, TransactionHistorySection, SettingsSection, ProfileSetupModal, and PhoneVerificationModal",
         "status": "implemented",
         "plannedFiles": [
+          "frontend/src/components/ProfileHeader.tsx",
+          "frontend/src/components/ProfileTabs.tsx",
+          "frontend/src/components/PersonalInfoSection.tsx",
+          "frontend/src/components/BettingHistorySection.tsx",
+          "frontend/src/components/TransactionHistorySection.tsx",
+          "frontend/src/components/SettingsSection.tsx",
           "frontend/src/components/ProfileSetupModal.tsx",
           "frontend/src/components/PhoneVerificationModal.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/ProfileSetupModal.tsx"
+          "frontend/src/components/ProfileHeader.tsx",
+          "frontend/src/components/ProfileTabs.tsx",
+          "frontend/src/components/PersonalInfoSection.tsx",
+          "frontend/src/components/BettingHistorySection.tsx",
+          "frontend/src/components/TransactionHistorySection.tsx",
+          "frontend/src/components/SettingsSection.tsx",
+          "frontend/src/components/ProfileSetupModal.tsx",
+          "frontend/src/components/PhoneVerificationModal.tsx"
         ]
       },
       {
-        "id": "REQ-30",
-        "summary": "Add a currency selection field to the deposit interface in DepositSection that allows users to select their local African currency from a dropdown list including KES (Kenyan Shilling), NGN (Nigerian Naira), ZAR (South African Rand), GHS (Ghanaian Cedi), TZS (Tanzanian Shilling), UGX (Ugandan Shilling), RWF (Rwandan Franc), ETB (Ethiopian Birr), EGP (Egyptian Pound), MAD (Moroccan Dirham), and other major African currencies.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/DepositSection.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/DepositSection.tsx"
-        ]
-      },
-      {
-        "id": "REQ-31",
-        "summary": "Implement automatic currency conversion logic in the backend that converts deposit amounts from the user's selected African currency to Kenyan Shillings (KES) using current exchange rates. Store both the original amount with currency and the converted KES amount in the transaction record.",
+        "id": "REQ-38",
+        "summary": "Remove backend functions related to user profile management including getUserProfile, createUserProfile, updateUserProfile, verifyPhone, resendVerificationCode, and getTotalMemberCount",
         "status": "unknown",
         "plannedFiles": [],
         "matchedFiles": []
       },
       {
-        "id": "REQ-32",
-        "summary": "Display the currency conversion details in the deposit confirmation flow, showing the user's original deposit amount in their local currency, the exchange rate used, and the equivalent amount in Kenyan Shillings that will be credited to their account.",
+        "id": "REQ-39",
+        "summary": "Remove React Query hooks related to profile operations including useGetUserProfile, useCreateUserProfile, useUpdateUserProfile, useVerifyPhone, useResendVerificationCode, and useGetTotalMemberCount from useQueries.ts",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/DepositSection.tsx"
+          "frontend/src/hooks/useQueries.ts"
         ],
         "matchedFiles": [
-          "frontend/src/components/DepositSection.tsx"
+          "frontend/src/hooks/useQueries.ts"
         ]
       },
       {
-        "id": "REQ-33",
-        "summary": "Update the M-PESA paybill number from 290290 to 400004 throughout the entire application including DepositSection component, backend transaction records, and all user-facing messages that reference the paybill number.",
+        "id": "REQ-40",
+        "summary": "Remove phone validation utilities from frontend/src/utils/phoneValidation.ts as they are only used by profile components",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/DepositSection.tsx"
+          "frontend/src/utils/phoneValidation.ts"
         ],
         "matchedFiles": [
-          "frontend/src/components/DepositSection.tsx"
+          "frontend/src/utils/phoneValidation.ts"
         ]
       },
       {
-        "id": "REQ-34",
-        "summary": "Make the paybill number 400004 prominently visible and visually emphasized in the DepositSection interface with clear instructions that users should use this paybill for deposits, ensuring it stands out from other payment information.",
+        "id": "REQ-41",
+        "summary": "Remove MemberCountCard and BalanceCard components as they are only used in the profile interface",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/DepositSection.tsx"
+          "frontend/src/components/MemberCountCard.tsx",
+          "frontend/src/components/BalanceCard.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/DepositSection.tsx"
-        ]
-      },
-      {
-        "id": "REQ-35",
-        "summary": "Update TransactionHistorySection to display transactions with their original currency and amount alongside the converted KES amount, allowing users to see both values in their transaction history.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/TransactionHistorySection.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/TransactionHistorySection.tsx"
+          "frontend/src/components/MemberCountCard.tsx",
+          "frontend/src/components/BalanceCard.tsx"
         ]
       }
     ]
@@ -104,14 +99,24 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/src/App.tsx",
     "frontend/src/backend.d.ts",
     "frontend/src/backend.ts",
-    "frontend/src/components/DepositSection.tsx",
+    "frontend/src/components/BalanceCard.tsx",
+    "frontend/src/components/BettingHistorySection.tsx",
+    "frontend/src/components/MemberCountCard.tsx",
+    "frontend/src/components/PersonalInfoSection.tsx",
+    "frontend/src/components/PhoneVerificationModal.tsx",
+    "frontend/src/components/ProfileHeader.tsx",
     "frontend/src/components/ProfileSetupModal.tsx",
+    "frontend/src/components/ProfileTabs.tsx",
+    "frontend/src/components/SettingsSection.tsx",
     "frontend/src/components/TransactionHistorySection.tsx",
     "frontend/src/declarations/backend.did.d.ts",
     "frontend/src/declarations/backend.did.js",
     "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/AdminPage.tsx",
+    "frontend/src/pages/ProfilePage.tsx",
     "frontend/src/utils/phoneValidation.ts",
     "project_state.json",
     "scratch/component-selection.json",

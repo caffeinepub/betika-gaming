@@ -1,168 +1,144 @@
 {
   "kind": "build_request",
-  "title": "Add Pan-African support with currency conversion and update paybill to 400004",
+  "title": "Remove profile functionality",
   "projectName": "Betika Casino",
-  "priority": "high",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-28",
-      "text": "Update phone number validation in frontend/src/utils/phoneValidation.ts to support phone numbers from all African countries, not just Kenya (Safaricom and Airtel). Include validation patterns for major African countries including Nigeria, South Africa, Ghana, Tanzania, Uganda, Rwanda, Ethiopia, Egypt, Morocco, and others.",
+      "id": "REQ-36",
+      "text": "Remove the profile page route and ProfilePage component from the frontend application",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-final"
         ],
         "quotes": [
-          "Enable it to work in whole Africa countries"
+          "Remove profile only"
         ]
       },
       "acceptanceCriteria": [
-        "Phone validation accepts valid phone numbers from at least 15 major African countries",
-        "Validation includes both local and international formats for each country",
-        "Invalid phone numbers are rejected with appropriate error messages"
+        "ProfilePage.tsx is removed from frontend/src/pages/",
+        "Profile route is removed from App.tsx router configuration",
+        "Application builds and runs without errors after profile removal"
       ]
     },
     {
-      "id": "REQ-29",
-      "text": "Update the phone number input fields in ProfileSetupModal and PhoneVerificationModal to accept and properly format phone numbers from all African countries, removing Kenya-specific validation constraints.",
+      "id": "REQ-37",
+      "text": "Remove all profile-related components including ProfileHeader, ProfileTabs, PersonalInfoSection, BettingHistorySection, TransactionHistorySection, SettingsSection, ProfileSetupModal, and PhoneVerificationModal",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-final"
         ],
         "quotes": [
-          "Enable it to work in whole Africa countries"
+          "Remove profile only"
         ]
       },
       "acceptanceCriteria": [
-        "Users can enter phone numbers from any African country",
-        "Phone number formatting adapts to the detected country",
-        "Carrier detection is updated or removed if not applicable to all countries"
+        "ProfileHeader.tsx is removed from frontend/src/components/",
+        "ProfileTabs.tsx is removed from frontend/src/components/",
+        "PersonalInfoSection.tsx is removed from frontend/src/components/",
+        "BettingHistorySection.tsx is removed from frontend/src/components/",
+        "TransactionHistorySection.tsx is removed from frontend/src/components/",
+        "SettingsSection.tsx is removed from frontend/src/components/",
+        "ProfileSetupModal.tsx is removed from frontend/src/components/",
+        "PhoneVerificationModal.tsx is removed from frontend/src/components/",
+        "No unused imports or references to removed components remain in the codebase"
       ]
     },
     {
-      "id": "REQ-30",
-      "text": "Add a currency selection field to the deposit interface in DepositSection that allows users to select their local African currency from a dropdown list including KES (Kenyan Shilling), NGN (Nigerian Naira), ZAR (South African Rand), GHS (Ghanaian Cedi), TZS (Tanzanian Shilling), UGX (Ugandan Shilling), RWF (Rwandan Franc), ETB (Ethiopian Birr), EGP (Egyptian Pound), MAD (Moroccan Dirham), and other major African currencies.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-5"
-        ],
-        "quotes": [
-          "automation in the responsible country currency directly changed into Kenyan shillings"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Currency dropdown is prominently displayed in the deposit interface",
-        "All major African currencies are available for selection",
-        "Selected currency is clearly indicated to the user"
-      ]
-    },
-    {
-      "id": "REQ-31",
-      "text": "Implement automatic currency conversion logic in the backend that converts deposit amounts from the user's selected African currency to Kenyan Shillings (KES) using current exchange rates. Store both the original amount with currency and the converted KES amount in the transaction record.",
+      "id": "REQ-38",
+      "text": "Remove backend functions related to user profile management including getUserProfile, createUserProfile, updateUserProfile, verifyPhone, resendVerificationCode, and getTotalMemberCount",
       "target": "backend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-final"
         ],
         "quotes": [
-          "automation in the responsible country currency directly changed into Kenyan shillings"
+          "Remove profile only"
         ]
       },
       "acceptanceCriteria": [
-        "Backend accepts currency code with deposit amount",
-        "Conversion to KES is performed automatically using exchange rates",
-        "Transaction records store both original currency/amount and converted KES amount",
-        "User balance is updated in KES after conversion"
+        "getUserProfile function is removed from backend/main.mo",
+        "createUserProfile function is removed from backend/main.mo",
+        "updateUserProfile function is removed from backend/main.mo",
+        "verifyPhone function is removed from backend/main.mo",
+        "resendVerificationCode function is removed from backend/main.mo",
+        "getTotalMemberCount function is removed from backend/main.mo",
+        "UserProfile type definition and related stable variable storage are removed",
+        "Backend compiles successfully after profile function removal"
       ]
     },
     {
-      "id": "REQ-32",
-      "text": "Display the currency conversion details in the deposit confirmation flow, showing the user's original deposit amount in their local currency, the exchange rate used, and the equivalent amount in Kenyan Shillings that will be credited to their account.",
+      "id": "REQ-39",
+      "text": "Remove React Query hooks related to profile operations including useGetUserProfile, useCreateUserProfile, useUpdateUserProfile, useVerifyPhone, useResendVerificationCode, and useGetTotalMemberCount from useQueries.ts",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-final"
         ],
         "quotes": [
-          "automation in the responsible country currency directly changed into Kenyan shillings"
+          "Remove profile only"
         ]
       },
       "acceptanceCriteria": [
-        "Deposit confirmation shows original amount and currency",
-        "Exchange rate is clearly displayed",
-        "Converted KES amount is prominently shown",
-        "User understands exactly how much KES will be credited"
+        "useGetUserProfile hook is removed from frontend/src/hooks/useQueries.ts",
+        "useCreateUserProfile hook is removed from frontend/src/hooks/useQueries.ts",
+        "useUpdateUserProfile hook is removed from frontend/src/hooks/useQueries.ts",
+        "useVerifyPhone hook is removed from frontend/src/hooks/useQueries.ts",
+        "useResendVerificationCode hook is removed from frontend/src/hooks/useQueries.ts",
+        "useGetTotalMemberCount hook is removed from frontend/src/hooks/useQueries.ts",
+        "No components attempt to import or use the removed hooks"
       ]
     },
     {
-      "id": "REQ-33",
-      "text": "Update the M-PESA paybill number from 290290 to 400004 throughout the entire application including DepositSection component, backend transaction records, and all user-facing messages that reference the paybill number.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-5"
-        ],
-        "quotes": [
-          "change the paybill to be 400004"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Paybill number 400004 is displayed in the deposit interface",
-        "Backend transaction records reference paybill 400004",
-        "All references to paybill 290290 are replaced with 400004",
-        "No occurrences of the old paybill number remain in the codebase"
-      ]
-    },
-    {
-      "id": "REQ-34",
-      "text": "Make the paybill number 400004 prominently visible and visually emphasized in the DepositSection interface with clear instructions that users should use this paybill for deposits, ensuring it stands out from other payment information.",
+      "id": "REQ-40",
+      "text": "Remove phone validation utilities from frontend/src/utils/phoneValidation.ts as they are only used by profile components",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-final"
         ],
         "quotes": [
-          "make the paybill visible when depositing funds option"
+          "Remove profile only"
         ]
       },
       "acceptanceCriteria": [
-        "Paybill 400004 is displayed in a large, bold, or highlighted format",
-        "Paybill is positioned prominently in the deposit interface",
-        "Clear instructions accompany the paybill number",
-        "Users cannot miss the paybill number when viewing deposit options"
+        "phoneValidation.ts is removed from frontend/src/utils/",
+        "No remaining components reference phone validation functions"
       ]
     },
     {
-      "id": "REQ-35",
-      "text": "Update TransactionHistorySection to display transactions with their original currency and amount alongside the converted KES amount, allowing users to see both values in their transaction history.",
+      "id": "REQ-41",
+      "text": "Remove MemberCountCard and BalanceCard components as they are only used in the profile interface",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5"
+          "msg-final"
+        ],
+        "quotes": [
+          "Remove profile only"
         ]
       },
       "acceptanceCriteria": [
-        "Transaction history shows original currency and amount",
-        "Converted KES amount is also displayed for each transaction",
-        "Currency codes are clearly labeled",
-        "Historical transactions display conversion information"
+        "MemberCountCard.tsx is removed from frontend/src/components/",
+        "BalanceCard.tsx is removed from frontend/src/components/",
+        "No remaining components attempt to import these components"
       ]
     }
   ],
   "constraints": [
-    "Maintain the existing single-actor backend architecture in backend/main.mo",
-    "Preserve the existing Internet Identity authentication system",
-    "Keep the account number 0116828013 unchanged for fund routing",
-    "Do not modify immutable frontend paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui"
+    "Keep the deposit functionality (DepositSection component) intact as it may be used elsewhere",
+    "Keep the admin functionality (AdminPage, AdminFundsReleaseSection) intact",
+    "Keep the authentication system (Internet Identity hooks) intact",
+    "Do not modify backend transaction and deposit logic unrelated to profile management"
   ],
   "nonGoals": [
-    "Integration with third-party currency conversion APIs (use static or configurable exchange rates)",
-    "Real-time exchange rate updates from external services",
-    "Support for cryptocurrencies or non-African currencies",
-    "Multiple paybill numbers for different regions",
-    "Automatic detection of user's country based on IP address"
+    "Removing deposit or transaction functionality",
+    "Removing admin interfaces or fund release capabilities",
+    "Removing authentication system or Internet Identity integration",
+    "Modifying the M-PESA paybill 400004 payment system",
+    "Removing multi-currency support for deposits"
   ],
   "imageRequirements": {
     "required": [],

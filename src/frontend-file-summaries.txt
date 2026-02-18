@@ -1,5 +1,5 @@
 {
-  "frontend/src/App.tsx": "Main application component with TanStack Router setup defining routes for profile page, admin page, and rendering the Toaster component.",
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup defining routes for admin page only, rendering AdminPage as the default route with Toaster component.",
   "frontend/src/pages/ProfilePage.tsx": "Profile page managing authentication, profile setup with phone verification flow, and displaying the full profile interface with header and tabs.",
   "frontend/src/components/ProfileHeader.tsx": "Profile header with user avatar, info, balance card, conditional admin navigation button for admin users, and logout button.",
   "frontend/src/components/BalanceCard.tsx": "Prominent balance display card with green gradient background showing the user's account balance in KSh currency format with wallet icon.",
@@ -11,7 +11,7 @@
   "frontend/src/components/DataTable.tsx": "Reusable data table component with customizable columns, formatting support, and clean styling for displaying betting history and transaction records.",
   "frontend/src/components/ProfileSetupModal.tsx": "Profile setup modal with username, email, phone number (supporting all African countries with country detection), and optional wallet address fields, triggering phone verification flow after profile creation.",
   "frontend/src/components/AccessDeniedScreen.tsx": "Access denied screen displayed to unauthenticated users with login button and clear messaging about authentication requirements.",
-  "frontend/src/hooks/useQueries.ts": "React Query hooks for user profile management, deposits with currency support, member count, phone verification (initiate/verify/resend), admin operations (pending winners, release winnings, release history), and admin role checking.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for deposit operations (initiate/confirm), admin operations (pending winners, release winnings, release history), and admin role checking.",
   "frontend/src/index.css": "Global styles with OKLCH color system including custom Betika green theme colors (primary green, dark, and light variants) for both light and dark modes with utility classes.",
   "frontend/tailwind.config.js": "Tailwind configuration extended with Betika green color palette (default, dark, light variants) integrated into the theme's color system.",
   "frontend/src/components/DepositSection.tsx": "Deposit interface with currency selection dropdown for 9 African currencies, prominent display of M-PESA paybill 400004, automatic currency conversion to KES with detailed conversion summary, copy-to-clipboard functionality, and step-by-step M-PESA payment instructions.",
@@ -19,5 +19,5 @@
   "frontend/src/utils/phoneValidation.ts": "Comprehensive phone validation utility supporting 16 African countries with country detection, carrier detection (Kenya-specific), formatting, and normalization functions for both local and international phone number formats.",
   "frontend/src/components/PhoneVerificationModal.tsx": "Phone verification modal with 6-digit OTP input, resend code functionality with countdown timer, and verification submission handling for pan-African phone numbers.",
   "frontend/src/components/AdminFundsReleaseSection.tsx": "Admin-only component displaying pending winners with release buttons, confirmation dialogs, and real-time fund release functionality.",
-  "frontend/src/pages/AdminPage.tsx": "Admin dashboard page with holding account info, pending payouts summary, fund release section, and release history table, restricted to admin users only."
+  "frontend/src/pages/AdminPage.tsx": "Admin dashboard page with holding account info, pending payouts summary, fund release section, and release history table, restricted to admin users only with no navigation back to profile."
 }

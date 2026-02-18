@@ -3,16 +3,13 @@ import { useIsCallerAdmin, useGetReleaseHistory } from '../hooks/useQueries';
 import AccessDeniedScreen from '../components/AccessDeniedScreen';
 import AdminFundsReleaseSection from '../components/AdminFundsReleaseSection';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { ArrowLeft, Wallet, TrendingUp, History } from 'lucide-react';
-import { useNavigate } from '@tanstack/react-router';
+import { Wallet, TrendingUp, History } from 'lucide-react';
 import DataTable from '../components/DataTable';
 
 export default function AdminPage() {
   const { identity } = useInternetIdentity();
   const { data: isAdmin, isLoading: adminCheckLoading } = useIsCallerAdmin();
   const { data: releaseHistory, isLoading: historyLoading } = useGetReleaseHistory();
-  const navigate = useNavigate();
 
   const isAuthenticated = !!identity;
 
@@ -61,18 +58,9 @@ export default function AdminPage() {
       {/* Header */}
       <div className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center gap-4 mb-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => navigate({ to: '/profile' })}
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-            <div>
-              <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-              <p className="text-muted-foreground">Manage fund releases and payouts</p>
-            </div>
+          <div>
+            <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+            <p className="text-muted-foreground">Manage fund releases and payouts</p>
           </div>
         </div>
       </div>
@@ -88,7 +76,7 @@ export default function AdminPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">0116828013</div>
-              <p className="text-xs text-muted-foreground">M-PESA Paybill 290290</p>
+              <p className="text-xs text-muted-foreground">M-PESA Paybill 400004</p>
             </CardContent>
           </Card>
 

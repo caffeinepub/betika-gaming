@@ -1,31 +1,18 @@
 import Map "mo:core/Map";
-import Text "mo:core/Text";
+import Runtime "mo:core/Runtime";
 import Nat "mo:core/Nat";
 import Principal "mo:core/Principal";
-import Runtime "mo:core/Runtime";
 import OutCall "http-outcalls/outcall";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 import Migration "migration";
 
+// Explicitly apply migration logic to remove unused persistent maps
 (with migration = Migration.run)
 actor {
   // Initialize the user system state
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
-
-  public type Profile = {
-    username : Text;
-    email : Text;
-    walletAddress : Text;
-    balance : Nat;
-  };
-
-  public type ProfileUpdate = {
-    username : Text;
-    email : Text;
-    walletAddress : Text;
-  };
 
   public type Currency = {
     #KES;
@@ -57,73 +44,12 @@ actor {
     isPaid : Bool; // Indicates if the winning amount has been paid out
   };
 
-  let userProfiles = Map.empty<Principal.Principal, Profile>();
   let transactions = Map.empty<Nat, DepositTransaction>();
   let winningRecords = Map.empty<Principal.Principal, WinningRecord>();
-
   var nextTransactionId = 0;
 
   let MAIN_ACCOUNT = "0116828013";
   let MPESA_PAYBILL = "400004"; // Updated paybill number
-
-  // Get profile of the caller
-  public query ({ caller }) func getCallerUserProfile() : async ?Profile {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only users can access this function");
-    };
-    userProfiles.get(caller);
-  };
-
-  // Get profile of any user (admin or specific user access)
-  public query ({ caller }) func getUserProfile(user : Principal.Principal) : async ?Profile {
-    if (caller != user and not (AccessControl.isAdmin(accessControlState, caller))) {
-      Runtime.trap("Unauthorized: Can only view your own profile");
-    };
-    userProfiles.get(user);
-  };
-
-  // Save/update caller's user profile (excluding balance)
-  public shared ({ caller }) func saveCallerUserProfile(profileUpdate : ProfileUpdate) : async () {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only users can save profiles");
-    };
-
-    let currentBalance = switch (userProfiles.get(caller)) {
-      case (?existingProfile) { existingProfile.balance };
-      case (null) { 0 };
-    };
-
-    let profile : Profile = {
-      username = profileUpdate.username;
-      email = profileUpdate.email;
-      walletAddress = profileUpdate.walletAddress;
-      balance = currentBalance;
-    };
-
-    userProfiles.add(caller, profile);
-  };
-
-  // Admin-only function to adjust user balance (for withdrawals, etc.)
-  public shared ({ caller }) func adjustUserBalance(user : Principal.Principal, newBalance : Nat) : async () {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
-      Runtime.trap("Unauthorized: Only admins can adjust user balances");
-    };
-
-    switch (userProfiles.get(user)) {
-      case (?existingProfile) {
-        let updatedProfile : Profile = {
-          username = existingProfile.username;
-          email = existingProfile.email;
-          walletAddress = existingProfile.walletAddress;
-          balance = newBalance;
-        };
-        userProfiles.add(user, updatedProfile);
-      };
-      case (null) {
-        Runtime.trap("User profile not found");
-      };
-    };
-  };
 
   // Function to fetch live exchange rates (placeholder)
   public query func transform(input : OutCall.TransformationInput) : async OutCall.TransformationOutput {
@@ -131,7 +57,6 @@ actor {
   };
 
   func getLiveExchangeRate(_currency : Currency) : async Nat {
-    // Simulate using pre-defined rates for now
     150; // Placeholder: 1 USD = 150 KES
   };
 
@@ -196,39 +121,17 @@ actor {
         if (transaction.confirmed) {
           Runtime.trap("Deposit already confirmed");
         };
-        switch (userProfiles.get(transaction.user)) {
-          case (null) {
-            Runtime.trap("Deposit made, but user profile not found.");
-          };
-          case (?userProfile) {
-            let updatedProfile : Profile = {
-              username = userProfile.username;
-              email = userProfile.email;
-              walletAddress = userProfile.walletAddress;
-              balance = userProfile.balance + transaction.convertedAmountKES;
-            };
-            userProfiles.add(transaction.user, updatedProfile);
-
-            let confirmedTransaction : DepositTransaction = {
-              transaction with confirmed = true;
-            };
-            transactions.add(transactionId, confirmedTransaction);
-          };
-        };
+        transactions.add(
+          transactionId,
+          {
+            transaction with confirmed = true;
+          },
+        );
       };
     };
   };
 
-  // Get the total number of users (members) - requires user permission
-  public query ({ caller }) func getTotalMemberCount() : async Nat {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only users can view member count");
-    };
-    userProfiles.size();
-  };
-
-  // ADDITIONAL FUNCTIONALITY FOR WINNING RECORDS AND PAYOUTS
-
+  // Additional functionality for winning records and payouts
   // Function to record a user's win
   public shared ({ caller }) func recordWin(user : Principal.Principal, amount : Nat) : async () {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
@@ -260,8 +163,6 @@ actor {
         };
 
         // Simulate payment out here.
-        // In an actual implementation, this will involve third-party services.
-
         let updatedRecord : WinningRecord = {
           winningRecord with isPaid = true;
         };

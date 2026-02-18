@@ -1,126 +1,139 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add Pan-African support with currency conversion and update paybill to 400004",
+  "title": "Remove Profile Functionality",
   "requirements": [
     {
-      "id": "REQ-28",
-      "summary": "Update phone number validation to support all African countries",
+      "id": "REQ-36",
+      "summary": "Remove the profile page route and ProfilePage component from the frontend application",
       "acceptanceCriteria": [
-        "Phone validation accepts valid phone numbers from at least 15 major African countries",
-        "Validation includes both local and international formats for each country",
-        "Invalid phone numbers are rejected with appropriate error messages"
+        "ProfilePage.tsx is removed from frontend/src/pages/",
+        "Profile route is removed from App.tsx router configuration",
+        "Application builds and runs without errors after profile removal"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ProfilePage.tsx",
+          "operation": "delete",
+          "description": "Remove the ProfilePage component file that displays user profile information with tabs and member count"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Remove the profile route configuration from the TanStack Router setup. Remove any imports referencing ProfilePage component and its route definition"
+        }
+      ]
+    },
+    {
+      "id": "REQ-37",
+      "summary": "Remove all profile-related components including ProfileHeader, ProfileTabs, PersonalInfoSection, BettingHistorySection, TransactionHistorySection, SettingsSection, ProfileSetupModal, and PhoneVerificationModal",
+      "acceptanceCriteria": [
+        "ProfileHeader.tsx is removed from frontend/src/components/",
+        "ProfileTabs.tsx is removed from frontend/src/components/",
+        "PersonalInfoSection.tsx is removed from frontend/src/components/",
+        "BettingHistorySection.tsx is removed from frontend/src/components/",
+        "TransactionHistorySection.tsx is removed from frontend/src/components/",
+        "SettingsSection.tsx is removed from frontend/src/components/",
+        "ProfileSetupModal.tsx is removed from frontend/src/components/",
+        "PhoneVerificationModal.tsx is removed from frontend/src/components/",
+        "No unused imports or references to removed components remain in the codebase"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ProfileHeader.tsx",
+          "operation": "delete",
+          "description": "Remove the profile header component that displays banner, avatar, user info, balance card, and action buttons"
+        },
+        {
+          "path": "frontend/src/components/ProfileTabs.tsx",
+          "operation": "delete",
+          "description": "Remove the tabbed interface component that organizes profile sections (Personal Info, Deposit, Betting History, Transactions, Settings)"
+        },
+        {
+          "path": "frontend/src/components/PersonalInfoSection.tsx",
+          "operation": "delete",
+          "description": "Remove the component that displays user profile information including username, email, wallet address, and member since date"
+        },
+        {
+          "path": "frontend/src/components/BettingHistorySection.tsx",
+          "operation": "delete",
+          "description": "Remove the betting history component that shows summary cards and data table of recent bets with mock data"
+        },
+        {
+          "path": "frontend/src/components/TransactionHistorySection.tsx",
+          "operation": "delete",
+          "description": "Remove the transaction history component that displays deposits, withdrawals, and winnings in a data table"
+        },
+        {
+          "path": "frontend/src/components/SettingsSection.tsx",
+          "operation": "delete",
+          "description": "Remove the settings form component that allows users to update username, email, and wallet address"
+        },
+        {
+          "path": "frontend/src/components/ProfileSetupModal.tsx",
+          "operation": "delete",
+          "description": "Remove the modal component for initial user profile setup that collects username, email, wallet address, and phone number with validation"
+        },
+        {
+          "path": "frontend/src/components/PhoneVerificationModal.tsx",
+          "operation": "delete",
+          "description": "Remove the modal for SMS verification code entry with resend functionality and countdown timer"
+        }
+      ]
+    },
+    {
+      "id": "REQ-39",
+      "summary": "Remove React Query hooks related to profile operations including useGetUserProfile, useCreateUserProfile, useUpdateUserProfile, useVerifyPhone, useResendVerificationCode, and useGetTotalMemberCount from useQueries.ts",
+      "acceptanceCriteria": [
+        "useGetUserProfile hook is removed from frontend/src/hooks/useQueries.ts",
+        "useCreateUserProfile hook is removed from frontend/src/hooks/useQueries.ts",
+        "useUpdateUserProfile hook is removed from frontend/src/hooks/useQueries.ts",
+        "useVerifyPhone hook is removed from frontend/src/hooks/useQueries.ts",
+        "useResendVerificationCode hook is removed from frontend/src/hooks/useQueries.ts",
+        "useGetTotalMemberCount hook is removed from frontend/src/hooks/useQueries.ts",
+        "No components attempt to import or use the removed hooks"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Remove all profile-related React Query hooks: useGetUserProfile, useCreateUserProfile, useUpdateUserProfile, useVerifyPhone, useResendVerificationCode, and useGetTotalMemberCount. Keep deposit-related hooks (useInitiateDeposit, useConfirmDeposit) and admin-related hooks (useRecordAdminDeposit, useReleaseWinnings) intact"
+        }
+      ]
+    },
+    {
+      "id": "REQ-40",
+      "summary": "Remove phone validation utilities from frontend/src/utils/phoneValidation.ts as they are only used by profile components",
+      "acceptanceCriteria": [
+        "phoneValidation.ts is removed from frontend/src/utils/",
+        "No remaining components reference phone validation functions"
       ],
       "file_operations": [
         {
           "path": "frontend/src/utils/phoneValidation.ts",
-          "operation": "modify",
-          "description": "Expand validation patterns to support phone numbers from major African countries including Nigeria (+234), South Africa (+27), Ghana (+233), Tanzania (+255), Uganda (+256), Rwanda (+250), Ethiopia (+251), Egypt (+20), Morocco (+212), Zambia (+260), Zimbabwe (+263), Cameroon (+237), Senegal (+221), Ivory Coast (+225), and Mozambique (+258). Include patterns for both local and international formats. Add country code detection and validation functions. Maintain existing Kenya validation patterns alongside new country patterns."
+          "operation": "delete",
+          "description": "Remove the pan-African phone number validation utilities that support 16+ countries with carrier detection and formatting functions, as they are exclusively used by the profile setup flow"
         }
       ]
     },
     {
-      "id": "REQ-29",
-      "summary": "Update phone input fields to accept Pan-African phone numbers",
+      "id": "REQ-41",
+      "summary": "Remove MemberCountCard and BalanceCard components as they are only used in the profile interface",
       "acceptanceCriteria": [
-        "Users can enter phone numbers from any African country",
-        "Phone number formatting adapts to the detected country",
-        "Carrier detection is updated or removed if not applicable to all countries"
+        "MemberCountCard.tsx is removed from frontend/src/components/",
+        "BalanceCard.tsx is removed from frontend/src/components/",
+        "No remaining components attempt to import these components"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/ProfileSetupModal.tsx",
-          "operation": "modify",
-          "description": "Remove Kenya-specific validation constraints and replace with Pan-African phone validation. Update the phone number input to accept phone numbers from all supported African countries. Add country code prefix selection or auto-detection. Update error messages to be country-agnostic. Remove or make optional the carrier detection feature since it's Kenya-specific (Safaricom/Airtel)."
+          "path": "frontend/src/components/MemberCountCard.tsx",
+          "operation": "delete",
+          "description": "Remove the member count card component that displays total registered members in a gradient green card with loading skeleton"
         },
         {
-          "path": "frontend/src/components/PhoneVerificationModal.tsx",
-          "operation": "modify",
-          "description": "Update phone display formatting to handle various African country phone formats. Ensure the modal works correctly with phone numbers from all supported African countries. Remove any Kenya-specific carrier references in the UI."
-        }
-      ]
-    },
-    {
-      "id": "REQ-30",
-      "summary": "Add currency selection field to deposit interface",
-      "acceptanceCriteria": [
-        "Currency dropdown is prominently displayed in the deposit interface",
-        "All major African currencies are available for selection",
-        "Selected currency is clearly indicated to the user"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/DepositSection.tsx",
-          "operation": "modify",
-          "description": "Add a currency selection dropdown above the amount input field that displays all major African currencies: KES (Kenyan Shilling), NGN (Nigerian Naira), ZAR (South African Rand), GHS (Ghanaian Cedi), TZS (Tanzanian Shilling), UGX (Ugandan Shilling), RWF (Rwandan Franc), ETB (Ethiopian Birr), EGP (Egyptian Pound), MAD (Moroccan Dirham), ZMW (Zambian Kwacha), MWK (Malawian Kwacha), and any others supported by the backend Currency enum. Default to KES. Store selected currency in component state and pass it to the initiateDeposit mutation. Display the currency symbol/code alongside the amount input."
-        }
-      ]
-    },
-    {
-      "id": "REQ-32",
-      "summary": "Display currency conversion details in deposit confirmation flow",
-      "acceptanceCriteria": [
-        "Deposit confirmation shows original amount and currency",
-        "Exchange rate is clearly displayed",
-        "Converted KES amount is prominently shown",
-        "User understands exactly how much KES will be credited"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/DepositSection.tsx",
-          "operation": "modify",
-          "description": "After successful deposit initiation, display a conversion summary section showing: (1) the original deposit amount with selected currency code, (2) the exchange rate used for conversion (fetch from backend or calculate from returned KES amount), (3) the equivalent KES amount that will be credited to the user's account. Use a clear, visually distinct card or section to present this information. Include explanatory text like 'Your deposit of X [CURRENCY] will be converted to Y KES at rate Z'."
-        }
-      ]
-    },
-    {
-      "id": "REQ-33",
-      "summary": "Update M-PESA paybill number from 290290 to 400004",
-      "acceptanceCriteria": [
-        "Paybill number 400004 is displayed in the deposit interface",
-        "Backend transaction records reference paybill 400004",
-        "All references to paybill 290290 are replaced with 400004",
-        "No occurrences of the old paybill number remain in the codebase"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/DepositSection.tsx",
-          "operation": "modify",
-          "description": "Replace all occurrences of paybill number 290290 with 400004. Update the displayed paybill number in the payment instructions section. Verify the copyable paybill field shows 400004. Search for any hardcoded references to 290290 and replace them with 400004."
-        }
-      ]
-    },
-    {
-      "id": "REQ-34",
-      "summary": "Make paybill number 400004 prominently visible in deposit interface",
-      "acceptanceCriteria": [
-        "Paybill 400004 is displayed in a large, bold, or highlighted format",
-        "Paybill is positioned prominently in the deposit interface",
-        "Clear instructions accompany the paybill number",
-        "Users cannot miss the paybill number when viewing deposit options"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/DepositSection.tsx",
-          "operation": "modify",
-          "description": "Enhance the visual prominence of paybill number 400004 by: (1) increasing font size (text-2xl or text-3xl), (2) applying bold font weight, (3) using a highlight color from the Betika green theme or a contrasting color, (4) adding a border or background to make it stand out, (5) positioning it at the top of the payment instructions section. Add clear, concise instructions like 'Use this PayBill to deposit funds' directly above or below the number. Consider adding an icon (like an arrow or emphasis marker) to draw attention."
-        }
-      ]
-    },
-    {
-      "id": "REQ-35",
-      "summary": "Update transaction history to display original and converted currency amounts",
-      "acceptanceCriteria": [
-        "Transaction history shows original currency and amount",
-        "Converted KES amount is also displayed for each transaction",
-        "Currency codes are clearly labeled",
-        "Historical transactions display conversion information"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/TransactionHistorySection.tsx",
-          "operation": "modify",
-          "description": "Update the DataTable configuration to display two amount columns for each transaction: (1) 'Original Amount' showing the amount with the original currency code (e.g., '1000 NGN'), and (2) 'KES Equivalent' showing the converted amount in Kenyan Shillings (e.g., '750 KES'). Update the mock data structure and type definitions to include both originalAmount, originalCurrency, and kesAmount fields. Add appropriate column headers and formatting. For KES-only transactions, display the same amount in both columns or only show KES amount with a note."
+          "path": "frontend/src/components/BalanceCard.tsx",
+          "operation": "delete",
+          "description": "Remove the balance card component that displays user account balance in KSh with wallet icon and locale-specific formatting"
         }
       ]
     }

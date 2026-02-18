@@ -1,42 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
-import { type Profile, type ProfileUpdate, Currency } from '../backend';
-import type { Principal } from '@icp-sdk/core/principal';
-
-export function useGetCallerUserProfile() {
-  const { actor, isFetching: actorFetching } = useActor();
-
-  const query = useQuery<Profile | null>({
-    queryKey: ['currentUserProfile'],
-    queryFn: async () => {
-      if (!actor) throw new Error('Actor not available');
-      return actor.getCallerUserProfile();
-    },
-    enabled: !!actor && !actorFetching,
-    retry: false,
-  });
-
-  return {
-    ...query,
-    isLoading: actorFetching || query.isLoading,
-    isFetched: !!actor && query.isFetched,
-  };
-}
-
-export function useSaveCallerUserProfile() {
-  const { actor } = useActor();
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async (profileUpdate: ProfileUpdate) => {
-      if (!actor) throw new Error('Actor not available');
-      return actor.saveCallerUserProfile(profileUpdate);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['currentUserProfile'] });
-    },
-  });
-}
+import { Currency } from '../backend';
 
 export function useInitiateDeposit() {
   const { actor } = useActor();
@@ -48,7 +12,7 @@ export function useInitiateDeposit() {
       return actor.initiateDeposit(currency, amount);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['currentUserProfile'] });
+      queryClient.invalidateQueries({ queryKey: ['deposits'] });
     },
   });
 }
@@ -63,47 +27,7 @@ export function useConfirmDeposit() {
       return actor.confirmDeposit(transactionId);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['currentUserProfile'] });
-    },
-  });
-}
-
-export function useGetTotalMemberCount() {
-  const { actor, isFetching: actorFetching } = useActor();
-
-  return useQuery<bigint>({
-    queryKey: ['totalMemberCount'],
-    queryFn: async () => {
-      if (!actor) throw new Error('Actor not available');
-      return actor.getTotalMemberCount();
-    },
-    enabled: !!actor && !actorFetching,
-  });
-}
-
-// Phone Verification Hooks
-export function useVerifyPhoneCode() {
-  return useMutation({
-    mutationFn: async ({ phoneNumber, code }: { phoneNumber: string; code: string }) => {
-      // Simulate phone verification (backend would handle actual SMS verification)
-      // For now, accept any 6-digit code as valid
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      
-      if (code === '000000') {
-        throw new Error('Invalid verification code');
-      }
-      
-      return { success: true };
-    },
-  });
-}
-
-export function useResendVerificationCode() {
-  return useMutation({
-    mutationFn: async (phoneNumber: string) => {
-      // Simulate resending verification code
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      return { success: true };
+      queryClient.invalidateQueries({ queryKey: ['deposits'] });
     },
   });
 }

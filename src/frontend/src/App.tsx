@@ -1,5 +1,4 @@
 import { RouterProvider, createRouter, createRoute, createRootRoute } from '@tanstack/react-router';
-import ProfilePage from './pages/ProfilePage';
 import AdminPage from './pages/AdminPage';
 import { Toaster } from './components/ui/sonner';
 
@@ -7,7 +6,7 @@ const rootRoute = createRootRoute({
   component: () => (
     <>
       <div className="min-h-screen">
-        <ProfilePage />
+        <AdminPage />
       </div>
       <Toaster />
     </>
@@ -17,13 +16,7 @@ const rootRoute = createRootRoute({
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
-  component: ProfilePage,
-});
-
-const profileRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/profile',
-  component: ProfilePage,
+  component: AdminPage,
 });
 
 const adminRoute = createRoute({
@@ -32,7 +25,7 @@ const adminRoute = createRoute({
   component: AdminPage,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, profileRoute, adminRoute]);
+const routeTree = rootRoute.addChildren([indexRoute, adminRoute]);
 
 const router = createRouter({ routeTree });
 

@@ -20,17 +20,6 @@ export type Currency = { 'EUR' : null } |
   { 'ZAR' : null } |
   { 'ZMW' : null };
 export type Principal = Principal;
-export interface Profile {
-  'username' : string,
-  'balance' : bigint,
-  'walletAddress' : string,
-  'email' : string,
-}
-export interface ProfileUpdate {
-  'username' : string,
-  'walletAddress' : string,
-  'email' : string,
-}
 export interface TransformationInput {
   'context' : Uint8Array,
   'response' : http_request_result,
@@ -51,19 +40,14 @@ export interface http_request_result {
 }
 export interface _SERVICE {
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
-  'adjustUserBalance' : ActorMethod<[Principal, bigint], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'confirmDeposit' : ActorMethod<[bigint], undefined>,
-  'getCallerUserProfile' : ActorMethod<[], [] | [Profile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
-  'getTotalMemberCount' : ActorMethod<[], bigint>,
-  'getUserProfile' : ActorMethod<[Principal], [] | [Profile]>,
   'initiateDeposit' : ActorMethod<[Currency, bigint], bigint>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'recordAdminDeposit' : ActorMethod<[Currency, bigint], bigint>,
   'recordWin' : ActorMethod<[Principal, bigint], undefined>,
   'releaseWinningsToUser' : ActorMethod<[Principal], undefined>,
-  'saveCallerUserProfile' : ActorMethod<[ProfileUpdate], undefined>,
   'transform' : ActorMethod<[TransformationInput], TransformationOutput>,
 }
 export declare const idlService: IDL.ServiceClass;
