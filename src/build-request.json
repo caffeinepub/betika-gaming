@@ -1,0 +1,171 @@
+{
+  "kind": "build_request",
+  "title": "Add Pan-African support with currency conversion and update paybill to 400004",
+  "projectName": "Betika Casino",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-28",
+      "text": "Update phone number validation in frontend/src/utils/phoneValidation.ts to support phone numbers from all African countries, not just Kenya (Safaricom and Airtel). Include validation patterns for major African countries including Nigeria, South Africa, Ghana, Tanzania, Uganda, Rwanda, Ethiopia, Egypt, Morocco, and others.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "Enable it to work in whole Africa countries"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Phone validation accepts valid phone numbers from at least 15 major African countries",
+        "Validation includes both local and international formats for each country",
+        "Invalid phone numbers are rejected with appropriate error messages"
+      ]
+    },
+    {
+      "id": "REQ-29",
+      "text": "Update the phone number input fields in ProfileSetupModal and PhoneVerificationModal to accept and properly format phone numbers from all African countries, removing Kenya-specific validation constraints.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "Enable it to work in whole Africa countries"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can enter phone numbers from any African country",
+        "Phone number formatting adapts to the detected country",
+        "Carrier detection is updated or removed if not applicable to all countries"
+      ]
+    },
+    {
+      "id": "REQ-30",
+      "text": "Add a currency selection field to the deposit interface in DepositSection that allows users to select their local African currency from a dropdown list including KES (Kenyan Shilling), NGN (Nigerian Naira), ZAR (South African Rand), GHS (Ghanaian Cedi), TZS (Tanzanian Shilling), UGX (Ugandan Shilling), RWF (Rwandan Franc), ETB (Ethiopian Birr), EGP (Egyptian Pound), MAD (Moroccan Dirham), and other major African currencies.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "automation in the responsible country currency directly changed into Kenyan shillings"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Currency dropdown is prominently displayed in the deposit interface",
+        "All major African currencies are available for selection",
+        "Selected currency is clearly indicated to the user"
+      ]
+    },
+    {
+      "id": "REQ-31",
+      "text": "Implement automatic currency conversion logic in the backend that converts deposit amounts from the user's selected African currency to Kenyan Shillings (KES) using current exchange rates. Store both the original amount with currency and the converted KES amount in the transaction record.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "automation in the responsible country currency directly changed into Kenyan shillings"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend accepts currency code with deposit amount",
+        "Conversion to KES is performed automatically using exchange rates",
+        "Transaction records store both original currency/amount and converted KES amount",
+        "User balance is updated in KES after conversion"
+      ]
+    },
+    {
+      "id": "REQ-32",
+      "text": "Display the currency conversion details in the deposit confirmation flow, showing the user's original deposit amount in their local currency, the exchange rate used, and the equivalent amount in Kenyan Shillings that will be credited to their account.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "automation in the responsible country currency directly changed into Kenyan shillings"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Deposit confirmation shows original amount and currency",
+        "Exchange rate is clearly displayed",
+        "Converted KES amount is prominently shown",
+        "User understands exactly how much KES will be credited"
+      ]
+    },
+    {
+      "id": "REQ-33",
+      "text": "Update the M-PESA paybill number from 290290 to 400004 throughout the entire application including DepositSection component, backend transaction records, and all user-facing messages that reference the paybill number.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "change the paybill to be 400004"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Paybill number 400004 is displayed in the deposit interface",
+        "Backend transaction records reference paybill 400004",
+        "All references to paybill 290290 are replaced with 400004",
+        "No occurrences of the old paybill number remain in the codebase"
+      ]
+    },
+    {
+      "id": "REQ-34",
+      "text": "Make the paybill number 400004 prominently visible and visually emphasized in the DepositSection interface with clear instructions that users should use this paybill for deposits, ensuring it stands out from other payment information.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "make the paybill visible when depositing funds option"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Paybill 400004 is displayed in a large, bold, or highlighted format",
+        "Paybill is positioned prominently in the deposit interface",
+        "Clear instructions accompany the paybill number",
+        "Users cannot miss the paybill number when viewing deposit options"
+      ]
+    },
+    {
+      "id": "REQ-35",
+      "text": "Update TransactionHistorySection to display transactions with their original currency and amount alongside the converted KES amount, allowing users to see both values in their transaction history.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Transaction history shows original currency and amount",
+        "Converted KES amount is also displayed for each transaction",
+        "Currency codes are clearly labeled",
+        "Historical transactions display conversion information"
+      ]
+    }
+  ],
+  "constraints": [
+    "Maintain the existing single-actor backend architecture in backend/main.mo",
+    "Preserve the existing Internet Identity authentication system",
+    "Keep the account number 0116828013 unchanged for fund routing",
+    "Do not modify immutable frontend paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui"
+  ],
+  "nonGoals": [
+    "Integration with third-party currency conversion APIs (use static or configurable exchange rates)",
+    "Real-time exchange rate updates from external services",
+    "Support for cryptocurrencies or non-African currencies",
+    "Multiple paybill numbers for different regions",
+    "Automatic detection of user's country based on IP address"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

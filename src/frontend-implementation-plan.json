@@ -1,0 +1,128 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Add Pan-African support with currency conversion and update paybill to 400004",
+  "requirements": [
+    {
+      "id": "REQ-28",
+      "summary": "Update phone number validation to support all African countries",
+      "acceptanceCriteria": [
+        "Phone validation accepts valid phone numbers from at least 15 major African countries",
+        "Validation includes both local and international formats for each country",
+        "Invalid phone numbers are rejected with appropriate error messages"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/phoneValidation.ts",
+          "operation": "modify",
+          "description": "Expand validation patterns to support phone numbers from major African countries including Nigeria (+234), South Africa (+27), Ghana (+233), Tanzania (+255), Uganda (+256), Rwanda (+250), Ethiopia (+251), Egypt (+20), Morocco (+212), Zambia (+260), Zimbabwe (+263), Cameroon (+237), Senegal (+221), Ivory Coast (+225), and Mozambique (+258). Include patterns for both local and international formats. Add country code detection and validation functions. Maintain existing Kenya validation patterns alongside new country patterns."
+        }
+      ]
+    },
+    {
+      "id": "REQ-29",
+      "summary": "Update phone input fields to accept Pan-African phone numbers",
+      "acceptanceCriteria": [
+        "Users can enter phone numbers from any African country",
+        "Phone number formatting adapts to the detected country",
+        "Carrier detection is updated or removed if not applicable to all countries"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ProfileSetupModal.tsx",
+          "operation": "modify",
+          "description": "Remove Kenya-specific validation constraints and replace with Pan-African phone validation. Update the phone number input to accept phone numbers from all supported African countries. Add country code prefix selection or auto-detection. Update error messages to be country-agnostic. Remove or make optional the carrier detection feature since it's Kenya-specific (Safaricom/Airtel)."
+        },
+        {
+          "path": "frontend/src/components/PhoneVerificationModal.tsx",
+          "operation": "modify",
+          "description": "Update phone display formatting to handle various African country phone formats. Ensure the modal works correctly with phone numbers from all supported African countries. Remove any Kenya-specific carrier references in the UI."
+        }
+      ]
+    },
+    {
+      "id": "REQ-30",
+      "summary": "Add currency selection field to deposit interface",
+      "acceptanceCriteria": [
+        "Currency dropdown is prominently displayed in the deposit interface",
+        "All major African currencies are available for selection",
+        "Selected currency is clearly indicated to the user"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/DepositSection.tsx",
+          "operation": "modify",
+          "description": "Add a currency selection dropdown above the amount input field that displays all major African currencies: KES (Kenyan Shilling), NGN (Nigerian Naira), ZAR (South African Rand), GHS (Ghanaian Cedi), TZS (Tanzanian Shilling), UGX (Ugandan Shilling), RWF (Rwandan Franc), ETB (Ethiopian Birr), EGP (Egyptian Pound), MAD (Moroccan Dirham), ZMW (Zambian Kwacha), MWK (Malawian Kwacha), and any others supported by the backend Currency enum. Default to KES. Store selected currency in component state and pass it to the initiateDeposit mutation. Display the currency symbol/code alongside the amount input."
+        }
+      ]
+    },
+    {
+      "id": "REQ-32",
+      "summary": "Display currency conversion details in deposit confirmation flow",
+      "acceptanceCriteria": [
+        "Deposit confirmation shows original amount and currency",
+        "Exchange rate is clearly displayed",
+        "Converted KES amount is prominently shown",
+        "User understands exactly how much KES will be credited"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/DepositSection.tsx",
+          "operation": "modify",
+          "description": "After successful deposit initiation, display a conversion summary section showing: (1) the original deposit amount with selected currency code, (2) the exchange rate used for conversion (fetch from backend or calculate from returned KES amount), (3) the equivalent KES amount that will be credited to the user's account. Use a clear, visually distinct card or section to present this information. Include explanatory text like 'Your deposit of X [CURRENCY] will be converted to Y KES at rate Z'."
+        }
+      ]
+    },
+    {
+      "id": "REQ-33",
+      "summary": "Update M-PESA paybill number from 290290 to 400004",
+      "acceptanceCriteria": [
+        "Paybill number 400004 is displayed in the deposit interface",
+        "Backend transaction records reference paybill 400004",
+        "All references to paybill 290290 are replaced with 400004",
+        "No occurrences of the old paybill number remain in the codebase"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/DepositSection.tsx",
+          "operation": "modify",
+          "description": "Replace all occurrences of paybill number 290290 with 400004. Update the displayed paybill number in the payment instructions section. Verify the copyable paybill field shows 400004. Search for any hardcoded references to 290290 and replace them with 400004."
+        }
+      ]
+    },
+    {
+      "id": "REQ-34",
+      "summary": "Make paybill number 400004 prominently visible in deposit interface",
+      "acceptanceCriteria": [
+        "Paybill 400004 is displayed in a large, bold, or highlighted format",
+        "Paybill is positioned prominently in the deposit interface",
+        "Clear instructions accompany the paybill number",
+        "Users cannot miss the paybill number when viewing deposit options"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/DepositSection.tsx",
+          "operation": "modify",
+          "description": "Enhance the visual prominence of paybill number 400004 by: (1) increasing font size (text-2xl or text-3xl), (2) applying bold font weight, (3) using a highlight color from the Betika green theme or a contrasting color, (4) adding a border or background to make it stand out, (5) positioning it at the top of the payment instructions section. Add clear, concise instructions like 'Use this PayBill to deposit funds' directly above or below the number. Consider adding an icon (like an arrow or emphasis marker) to draw attention."
+        }
+      ]
+    },
+    {
+      "id": "REQ-35",
+      "summary": "Update transaction history to display original and converted currency amounts",
+      "acceptanceCriteria": [
+        "Transaction history shows original currency and amount",
+        "Converted KES amount is also displayed for each transaction",
+        "Currency codes are clearly labeled",
+        "Historical transactions display conversion information"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/TransactionHistorySection.tsx",
+          "operation": "modify",
+          "description": "Update the DataTable configuration to display two amount columns for each transaction: (1) 'Original Amount' showing the amount with the original currency code (e.g., '1000 NGN'), and (2) 'KES Equivalent' showing the converted amount in Kenyan Shillings (e.g., '750 KES'). Update the mock data structure and type definitions to include both originalAmount, originalCurrency, and kesAmount fields. Add appropriate column headers and formatting. For KES-only transactions, display the same amount in both columns or only show KES amount with a note."
+        }
+      ]
+    }
+  ]
+}

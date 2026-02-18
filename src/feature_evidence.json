@@ -1,0 +1,145 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-phone-number-validation-in-frontend-src-utils-phonevalidation-ts-to-support-phone-numbers-from-all-african-countries-not-just-kenya-safaricom-and-airtel-include-validation-patterns-for-major-african-countries-including-nigeria-south-africa-ghana-tanzania-uganda-rwanda-ethiopia-egypt-morocco-and-others",
+      "featureTitle": "Update phone number validation in frontend/src/utils/phoneValidation.ts to support phone numbers from all African countries, not just Kenya (Safaricom and Airtel). Include validation patterns for major African countries including Nigeria, South Africa, Ghana, Tanzania, Uganda, Rwanda, Ethiopia, Egypt, Morocco, and others.",
+      "files": [
+        "frontend/src/utils/phoneValidation.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-28"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-phone-number-input-fields-in-profilesetupmodal-and-phoneverificationmodal-to-accept-and-properly-format-phone-numbers-from-all-african-countries-removing-kenya-specific-validation-constraints",
+      "featureTitle": "Update the phone number input fields in ProfileSetupModal and PhoneVerificationModal to accept and properly format phone numbers from all African countries, removing Kenya-specific validation constraints.",
+      "files": [
+        "frontend/src/components/ProfileSetupModal.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-29"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-currency-selection-field-to-the-deposit-interface-in-depositsection-that-allows-users-to-select-their-local-african-currency-from-a-dropdown-list-including-kes-kenyan-shilling-ngn-nigerian-naira-zar-south-african-rand-ghs-ghanaian-cedi-tzs-tanzanian-shilling-ugx-ugandan-shilling-rwf-rwandan-franc-etb-ethiopian-birr-egp-egyptian-pound-mad-moroccan-dirham-and-other-major-african-currencies",
+      "featureTitle": "Add a currency selection field to the deposit interface in DepositSection that allows users to select their local African currency from a dropdown list including KES (Kenyan Shilling), NGN (Nigerian Naira), ZAR (South African Rand), GHS (Ghanaian Cedi), TZS (Tanzanian Shilling), UGX (Ugandan Shilling), RWF (Rwandan Franc), ETB (Ethiopian Birr), EGP (Egyptian Pound), MAD (Moroccan Dirham), and other major African currencies.",
+      "files": [
+        "frontend/src/components/DepositSection.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-30"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-display-the-currency-conversion-details-in-the-deposit-confirmation-flow-showing-the-user-s-original-deposit-amount-in-their-local-currency-the-exchange-rate-used-and-the-equivalent-amount-in-kenyan-shillings-that-will-be-credited-to-their-account",
+      "featureTitle": "Display the currency conversion details in the deposit confirmation flow, showing the user's original deposit amount in their local currency, the exchange rate used, and the equivalent amount in Kenyan Shillings that will be credited to their account.",
+      "files": [
+        "frontend/src/components/DepositSection.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-32"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-m-pesa-paybill-number-from-290290-to-400004-throughout-the-entire-application-including-depositsection-component-backend-transaction-records-and-all-user-facing-messages-that-reference-the-paybill-number",
+      "featureTitle": "Update the M-PESA paybill number from 290290 to 400004 throughout the entire application including DepositSection component, backend transaction records, and all user-facing messages that reference the paybill number.",
+      "files": [
+        "frontend/src/components/DepositSection.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-33"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-make-the-paybill-number-400004-prominently-visible-and-visually-emphasized-in-the-depositsection-interface-with-clear-instructions-that-users-should-use-this-paybill-for-deposits-ensuring-it-stands-out-from-other-payment-information",
+      "featureTitle": "Make the paybill number 400004 prominently visible and visually emphasized in the DepositSection interface with clear instructions that users should use this paybill for deposits, ensuring it stands out from other payment information.",
+      "files": [
+        "frontend/src/components/DepositSection.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-34"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-transactionhistorysection-to-display-transactions-with-their-original-currency-and-amount-alongside-the-converted-kes-amount-allowing-users-to-see-both-values-in-their-transaction-history",
+      "featureTitle": "Update TransactionHistorySection to display transactions with their original currency and amount alongside the converted KES amount, allowing users to see both values in their transaction history.",
+      "files": [
+        "frontend/src/components/TransactionHistorySection.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-35"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

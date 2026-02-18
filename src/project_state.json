@@ -1,0 +1,371 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 13,
+  "summary": "Betting and casino app similar to BETIKA with casino games, live games, and user profile functionality",
+  "architectural_notes": [
+    "Multi-section app architecture: casino games, live games, and user profiles",
+    "Consider game state management for casino games",
+    "User authentication system needed for profiles",
+    "Phone-based authentication system with SMS verification",
+    "Central payment account: 0116828013 receives all user deposits",
+    "User registration counter/analytics for total membership display",
+    "Multi-currency support: automatic conversion from African currencies to KES",
+    "Pan-African phone number validation system",
+    "M-PESA paybill updated to 400004"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-user-profile-page-with-sections-for-account-information-betting-history-and-wallet-balance-display",
+      "title": "Create a user profile page with sections for account information, betting history, and wallet/balance display",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-profile-navigation-with-tabs-or-sections-for-personal-info-betting-history-transactions-and-settings",
+      "title": "Implement profile navigation with tabs or sections for Personal Info, Betting History, Transactions, and Settings",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-user-authentication-state-management-to-track-logged-in-user-identity-using-internet-identity",
+      "title": "Add user authentication state management to track logged-in user identity using Internet Identity",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-the-profile-page-with-a-sports-betting-platform-aesthetic-featuring-green-accents-organized-data-tables-and-prominent-balance-display",
+      "title": "Design the profile page with a sports betting platform aesthetic featuring green accents, organized data tables, and prominent balance display",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-phone-number-registration-modal-component-that-captures-phone-number-input-and-displays-a-verification-code-entry-form",
+      "title": "Create a phone number registration modal component that captures phone number input and displays a verification code entry form",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-react-query-mutations-for-initiating-phone-verification-and-validating-verification-codes",
+      "title": "Add React Query mutations for initiating phone verification and validating verification codes",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-integrate-phone-registration-modal-into-profilesetupmodal-as-an-optional-step-during-initial-profile-creation",
+      "title": "Integrate phone registration modal into ProfileSetupModal as an optional step during initial profile creation",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-verified-phone-number-in-personalinfosection-with-a-verified-badge-icon",
+      "title": "Display verified phone number in PersonalInfoSection with a verified badge icon",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-phone-number-verification-option-to-settingssection-for-users-who-skipped-initial-setup",
+      "title": "Add phone number verification option to SettingsSection for users who skipped initial setup",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-payment-deposit-interface-in-the-frontend-that-allows-users-to-initiate-deposits-to-their-account-balance",
+      "title": "Add a payment deposit interface in the frontend that allows users to initiate deposits to their account balance",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-deposit-confirmation-flow-that-updates-user-balance-after-successful-payment-to-account-0116828013",
+      "title": "Add deposit confirmation flow that updates user balance after successful payment to account 0116828013",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-account-0116828013-prominently-in-the-deposit-interface-with-clear-payment-instructions",
+      "title": "Display account 0116828013 prominently in the deposit interface with clear payment instructions",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-deposit-interface-to-display-m-pesa-paybill-number-290290-as-the-primary-payment-method-alongside-the-existing-account-number-0116828013",
+      "title": "Update the deposit interface to display M-PESA paybill number 290290 as the primary payment method alongside the existing account number 0116828013",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-the-total-number-of-registered-members-prominently-on-the-profile-page-or-a-dashboard-section",
+      "title": "Display the total number of registered members prominently on the profile page or a dashboard section",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-deposit-confirmation-flow-to-reference-m-pesa-paybill-290290-in-transaction-records-and-user-facing-messages",
+      "title": "Update deposit confirmation flow to reference M-PESA paybill 290290 in transaction records and user-facing messages",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-phone-number-registration-modal-to-support-both-safaricom-and-airtel-phone-numbers-with-appropriate-validation-for-kenyan-mobile-number-formats",
+      "title": "Update the phone number registration modal to support both Safaricom and Airtel phone numbers with appropriate validation for Kenyan mobile number formats",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-phone-verification-flow-in-the-frontend-to-display-a-confirmation-code-entry-form-after-phone-number-submission-and-complete-verification-upon-successful-code-entry",
+      "title": "Update the phone verification flow in the frontend to display a confirmation code entry form after phone number submission and complete verification upon successful code entry",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-admin-interface-or-backend-function-that-allows-the-account-owner-to-manually-release-funds-from-account-0116828013-to-winning-users",
+      "title": "Create an admin interface or backend function that allows the account owner to manually release funds from account 0116828013 to winning users",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-phone-number-validation-in-frontend-src-utils-phonevalidation-ts-to-support-phone-numbers-from-all-african-countries-not-just-kenya-safaricom-and-airtel-include-validation-patterns-for-major-african-countries-including-nigeria-south-africa-ghana-tanzania-uganda-rwanda-ethiopia-egypt-morocco-and-others",
+      "title": "Update phone number validation in frontend/src/utils/phoneValidation.ts to support phone numbers from all African countries, not just Kenya (Safaricom and Airtel). Include validation patterns for major African countries including Nigeria, South Africa, Ghana, Tanzania, Uganda, Rwanda, Ethiopia, Egypt, Morocco, and others.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-phone-number-input-fields-in-profilesetupmodal-and-phoneverificationmodal-to-accept-and-properly-format-phone-numbers-from-all-african-countries-removing-kenya-specific-validation-constraints",
+      "title": "Update the phone number input fields in ProfileSetupModal and PhoneVerificationModal to accept and properly format phone numbers from all African countries, removing Kenya-specific validation constraints.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-currency-selection-field-to-the-deposit-interface-in-depositsection-that-allows-users-to-select-their-local-african-currency-from-a-dropdown-list-including-kes-kenyan-shilling-ngn-nigerian-naira-zar-south-african-rand-ghs-ghanaian-cedi-tzs-tanzanian-shilling-ugx-ugandan-shilling-rwf-rwandan-franc-etb-ethiopian-birr-egp-egyptian-pound-mad-moroccan-dirham-and-other-major-african-currencies",
+      "title": "Add a currency selection field to the deposit interface in DepositSection that allows users to select their local African currency from a dropdown list including KES (Kenyan Shilling), NGN (Nigerian Naira), ZAR (South African Rand), GHS (Ghanaian Cedi), TZS (Tanzanian Shilling), UGX (Ugandan Shilling), RWF (Rwandan Franc), ETB (Ethiopian Birr), EGP (Egyptian Pound), MAD (Moroccan Dirham), and other major African currencies.",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-the-currency-conversion-details-in-the-deposit-confirmation-flow-showing-the-user-s-original-deposit-amount-in-their-local-currency-the-exchange-rate-used-and-the-equivalent-amount-in-kenyan-shillings-that-will-be-credited-to-their-account",
+      "title": "Display the currency conversion details in the deposit confirmation flow, showing the user's original deposit amount in their local currency, the exchange rate used, and the equivalent amount in Kenyan Shillings that will be credited to their account.",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-m-pesa-paybill-number-from-290290-to-400004-throughout-the-entire-application-including-depositsection-component-backend-transaction-records-and-all-user-facing-messages-that-reference-the-paybill-number",
+      "title": "Update the M-PESA paybill number from 290290 to 400004 throughout the entire application including DepositSection component, backend transaction records, and all user-facing messages that reference the paybill number.",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-paybill-number-400004-prominently-visible-and-visually-emphasized-in-the-depositsection-interface-with-clear-instructions-that-users-should-use-this-paybill-for-deposits-ensuring-it-stands-out-from-other-payment-information",
+      "title": "Make the paybill number 400004 prominently visible and visually emphasized in the DepositSection interface with clear instructions that users should use this paybill for deposits, ensuring it stands out from other payment information.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-transactionhistorysection-to-display-transactions-with-their-original-currency-and-amount-alongside-the-converted-kes-amount-allowing-users-to-see-both-values-in-their-transaction-history",
+      "title": "Update TransactionHistorySection to display transactions with their original currency and amount alongside the converted KES amount, allowing users to see both values in their transaction history.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Casino games section (slots, blackjack, etc.)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Live games section",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "User profile functionality with BETIKA-style features",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Create backend data structures and functions to store and retrieve user profile information, betting history, and transaction records",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Phone number registration with SMS verification code",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Add phone number field to the user profile data model in backend/main.mo to store verified phone numbers",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Create backend functions to generate and validate 6-digit verification codes for phone number registration",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Add backend endpoint to initiate phone verification by accepting a phone number and returning a verification code",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Add backend endpoint to complete phone verification by validating the submitted code and updating the user profile",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Payment deposit system where user payments are routed to main account 0116828013",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Create backend data model and functions to record deposit transactions with the main account 0116828013 as the recipient",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Integrate M-PESA paybill 290290 for deposits linked to account 0116828013",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Display total number of registered members/users on the platform",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Add backend function to retrieve the total count of registered users/members on the platform",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Implement SMS verification code generation and delivery system in the backend that sends a 6-digit confirmation code to the registered phone number",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Implement backend logic to automatically route deposited funds to account 0116828013 and store them there until the owner manually releases payments to winners",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Support phone numbers from all African countries with appropriate validation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-25",
+      "summary": "Implement automatic currency conversion from various African currencies to Kenyan Shillings for deposits",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-26",
+      "summary": "Update paybill number from 290290 to 400004 throughout the application",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-27",
+      "summary": "Make paybill number prominently visible in the deposit funds interface",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-31",
+      "summary": "Implement automatic currency conversion logic in the backend that converts deposit amounts from the user's selected African currency to Kenyan Shillings (KES) using current exchange rates. Store both the original amount with currency and the converted KES amount in the transaction record.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Betika Casino",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
