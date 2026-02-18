@@ -13,6 +13,8 @@ export const UserRole = IDL.Variant({
   'user' : IDL.Null,
   'guest' : IDL.Null,
 });
+export const UserProfile = IDL.Record({ 'name' : IDL.Text });
+export const Principal = IDL.Principal;
 export const Currency = IDL.Variant({
   'EUR' : IDL.Null,
   'GBP' : IDL.Null,
@@ -24,7 +26,6 @@ export const Currency = IDL.Variant({
   'ZAR' : IDL.Null,
   'ZMW' : IDL.Null,
 });
-export const Principal = IDL.Principal;
 export const http_header = IDL.Record({
   'value' : IDL.Text,
   'name' : IDL.Text,
@@ -48,12 +49,15 @@ export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'confirmDeposit' : IDL.Func([IDL.Nat], [], []),
+  'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getUserProfile' : IDL.Func([Principal], [IDL.Opt(UserProfile)], ['query']),
   'initiateDeposit' : IDL.Func([Currency, IDL.Nat], [IDL.Nat], []),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'recordAdminDeposit' : IDL.Func([Currency, IDL.Nat], [IDL.Nat], []),
   'recordWin' : IDL.Func([Principal, IDL.Nat], [], []),
   'releaseWinningsToUser' : IDL.Func([Principal], [], []),
+  'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'transform' : IDL.Func(
       [TransformationInput],
       [TransformationOutput],
@@ -69,6 +73,8 @@ export const idlFactory = ({ IDL }) => {
     'user' : IDL.Null,
     'guest' : IDL.Null,
   });
+  const UserProfile = IDL.Record({ 'name' : IDL.Text });
+  const Principal = IDL.Principal;
   const Currency = IDL.Variant({
     'EUR' : IDL.Null,
     'GBP' : IDL.Null,
@@ -80,7 +86,6 @@ export const idlFactory = ({ IDL }) => {
     'ZAR' : IDL.Null,
     'ZMW' : IDL.Null,
   });
-  const Principal = IDL.Principal;
   const http_header = IDL.Record({ 'value' : IDL.Text, 'name' : IDL.Text });
   const http_request_result = IDL.Record({
     'status' : IDL.Nat,
@@ -101,12 +106,15 @@ export const idlFactory = ({ IDL }) => {
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'confirmDeposit' : IDL.Func([IDL.Nat], [], []),
+    'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getUserProfile' : IDL.Func([Principal], [IDL.Opt(UserProfile)], ['query']),
     'initiateDeposit' : IDL.Func([Currency, IDL.Nat], [IDL.Nat], []),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'recordAdminDeposit' : IDL.Func([Currency, IDL.Nat], [IDL.Nat], []),
     'recordWin' : IDL.Func([Principal, IDL.Nat], [], []),
     'releaseWinningsToUser' : IDL.Func([Principal], [], []),
+    'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'transform' : IDL.Func(
         [TransformationInput],
         [TransformationOutput],

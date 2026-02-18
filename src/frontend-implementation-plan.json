@@ -1,139 +1,56 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Remove Profile Functionality",
+  "title": "Implement 20% tax deduction on staked and withdrawal amounts",
   "requirements": [
     {
-      "id": "REQ-36",
-      "summary": "Remove the profile page route and ProfilePage component from the frontend application",
+      "id": "REQ-45",
+      "summary": "Update the DepositSection component to display tax breakdown showing deposited amount, 20% tax deduction, and net amount available for staking",
       "acceptanceCriteria": [
-        "ProfilePage.tsx is removed from frontend/src/pages/",
-        "Profile route is removed from App.tsx router configuration",
-        "Application builds and runs without errors after profile removal"
+        "Deposit interface shows gross deposit amount entered by user",
+        "Tax amount (20% of deposit) is displayed clearly",
+        "Net amount available for staking (80% of deposit) is prominently shown",
+        "Tax breakdown appears before user confirms the deposit"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/ProfilePage.tsx",
-          "operation": "delete",
-          "description": "Remove the ProfilePage component file that displays user profile information with tabs and member count"
-        },
-        {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/components/DepositSection.tsx",
           "operation": "modify",
-          "description": "Remove the profile route configuration from the TanStack Router setup. Remove any imports referencing ProfilePage component and its route definition"
+          "description": "Add tax calculation logic that computes 20% tax on the KES amount after currency conversion. Display a breakdown showing: original deposit amount in selected currency, converted KES amount, 20% tax deduction, and net amount (80%) available for staking. Include this breakdown in both the deposit form preview and the M-PESA payment instructions dialog. Format all KES amounts using the existing number formatting utilities."
         }
       ]
     },
     {
-      "id": "REQ-37",
-      "summary": "Remove all profile-related components including ProfileHeader, ProfileTabs, PersonalInfoSection, BettingHistorySection, TransactionHistorySection, SettingsSection, ProfileSetupModal, and PhoneVerificationModal",
+      "id": "REQ-46",
+      "summary": "Update the AdminFundsReleaseSection component to display tax breakdown for each payout showing winning amount, 20% tax deduction, and net payout amount",
       "acceptanceCriteria": [
-        "ProfileHeader.tsx is removed from frontend/src/components/",
-        "ProfileTabs.tsx is removed from frontend/src/components/",
-        "PersonalInfoSection.tsx is removed from frontend/src/components/",
-        "BettingHistorySection.tsx is removed from frontend/src/components/",
-        "TransactionHistorySection.tsx is removed from frontend/src/components/",
-        "SettingsSection.tsx is removed from frontend/src/components/",
-        "ProfileSetupModal.tsx is removed from frontend/src/components/",
-        "PhoneVerificationModal.tsx is removed from frontend/src/components/",
-        "No unused imports or references to removed components remain in the codebase"
+        "Admin interface shows gross winning amount for each pending payout",
+        "Tax amount (20% of winnings) is displayed clearly",
+        "Net payout amount (80% of winnings) is shown as the amount to be released",
+        "Confirmation dialog includes tax breakdown before releasing funds"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/ProfileHeader.tsx",
-          "operation": "delete",
-          "description": "Remove the profile header component that displays banner, avatar, user info, balance card, and action buttons"
-        },
-        {
-          "path": "frontend/src/components/ProfileTabs.tsx",
-          "operation": "delete",
-          "description": "Remove the tabbed interface component that organizes profile sections (Personal Info, Deposit, Betting History, Transactions, Settings)"
-        },
-        {
-          "path": "frontend/src/components/PersonalInfoSection.tsx",
-          "operation": "delete",
-          "description": "Remove the component that displays user profile information including username, email, wallet address, and member since date"
-        },
-        {
-          "path": "frontend/src/components/BettingHistorySection.tsx",
-          "operation": "delete",
-          "description": "Remove the betting history component that shows summary cards and data table of recent bets with mock data"
-        },
-        {
-          "path": "frontend/src/components/TransactionHistorySection.tsx",
-          "operation": "delete",
-          "description": "Remove the transaction history component that displays deposits, withdrawals, and winnings in a data table"
-        },
-        {
-          "path": "frontend/src/components/SettingsSection.tsx",
-          "operation": "delete",
-          "description": "Remove the settings form component that allows users to update username, email, and wallet address"
-        },
-        {
-          "path": "frontend/src/components/ProfileSetupModal.tsx",
-          "operation": "delete",
-          "description": "Remove the modal component for initial user profile setup that collects username, email, wallet address, and phone number with validation"
-        },
-        {
-          "path": "frontend/src/components/PhoneVerificationModal.tsx",
-          "operation": "delete",
-          "description": "Remove the modal for SMS verification code entry with resend functionality and countdown timer"
-        }
-      ]
-    },
-    {
-      "id": "REQ-39",
-      "summary": "Remove React Query hooks related to profile operations including useGetUserProfile, useCreateUserProfile, useUpdateUserProfile, useVerifyPhone, useResendVerificationCode, and useGetTotalMemberCount from useQueries.ts",
-      "acceptanceCriteria": [
-        "useGetUserProfile hook is removed from frontend/src/hooks/useQueries.ts",
-        "useCreateUserProfile hook is removed from frontend/src/hooks/useQueries.ts",
-        "useUpdateUserProfile hook is removed from frontend/src/hooks/useQueries.ts",
-        "useVerifyPhone hook is removed from frontend/src/hooks/useQueries.ts",
-        "useResendVerificationCode hook is removed from frontend/src/hooks/useQueries.ts",
-        "useGetTotalMemberCount hook is removed from frontend/src/hooks/useQueries.ts",
-        "No components attempt to import or use the removed hooks"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
+          "path": "frontend/src/components/AdminFundsReleaseSection.tsx",
           "operation": "modify",
-          "description": "Remove all profile-related React Query hooks: useGetUserProfile, useCreateUserProfile, useUpdateUserProfile, useVerifyPhone, useResendVerificationCode, and useGetTotalMemberCount. Keep deposit-related hooks (useInitiateDeposit, useConfirmDeposit) and admin-related hooks (useRecordAdminDeposit, useReleaseWinnings) intact"
+          "description": "Add tax calculation logic that computes 20% tax on winning amounts. Update the pending winners display to show three values for each winner: gross winning amount, 20% tax deduction, and net payout amount (80% of winnings). Modify the release confirmation dialog to include a detailed tax breakdown showing these three values before the admin confirms the release. All amounts should be displayed in KES with proper formatting."
         }
       ]
     },
     {
-      "id": "REQ-40",
-      "summary": "Remove phone validation utilities from frontend/src/utils/phoneValidation.ts as they are only used by profile components",
+      "id": "REQ-47",
+      "summary": "Update the release history data table in the admin interface to include tax amount and net payout columns for all completed fund releases",
       "acceptanceCriteria": [
-        "phoneValidation.ts is removed from frontend/src/utils/",
-        "No remaining components reference phone validation functions"
+        "Release history table shows gross winning amount column",
+        "Tax amount column displays 20% deduction for each release",
+        "Net payout column shows the actual amount released to the user",
+        "All amounts are displayed in KES with proper formatting"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/utils/phoneValidation.ts",
-          "operation": "delete",
-          "description": "Remove the pan-African phone number validation utilities that support 16+ countries with carrier detection and formatting functions, as they are exclusively used by the profile setup flow"
-        }
-      ]
-    },
-    {
-      "id": "REQ-41",
-      "summary": "Remove MemberCountCard and BalanceCard components as they are only used in the profile interface",
-      "acceptanceCriteria": [
-        "MemberCountCard.tsx is removed from frontend/src/components/",
-        "BalanceCard.tsx is removed from frontend/src/components/",
-        "No remaining components attempt to import these components"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/MemberCountCard.tsx",
-          "operation": "delete",
-          "description": "Remove the member count card component that displays total registered members in a gradient green card with loading skeleton"
-        },
-        {
-          "path": "frontend/src/components/BalanceCard.tsx",
-          "operation": "delete",
-          "description": "Remove the balance card component that displays user account balance in KSh with wallet icon and locale-specific formatting"
+          "path": "frontend/src/pages/AdminPage.tsx",
+          "operation": "modify",
+          "description": "Update the release history DataTable configuration to include three amount columns: gross winning amount, tax amount (20%), and net payout amount (80%). Add column definitions for 'Gross Amount', 'Tax (20%)', and 'Net Payout' with proper KES formatting. Ensure the table properly displays these calculated values for all historical fund releases retrieved from the backend."
         }
       ]
     }

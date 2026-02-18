@@ -1,13 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 15,
+  "projectStateVersion": 17,
   "summary": "Betting and casino app similar to BETIKA with casino games and live games",
   "architectural_notes": [
     "Multi-section app architecture: casino games, live games, and user profiles",
     "Consider game state management for casino games",
     "Central payment account: 0116828013 receives all user deposits",
     "Multi-currency support: automatic conversion from African currencies to KES",
-    "M-PESA paybill updated to 400004"
+    "M-PESA paybill updated to 400004",
+    "Tax system: 20% deduction applied to both stakes and withdrawals"
   ],
   "known_issues": [],
   "isFixRequest": false,
@@ -251,6 +252,30 @@
         "REQ-41"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-depositsection-frontend-component-to-display-the-tax-breakdown-showing-the-deposited-amount-20-tax-deduction-and-net-amount-available-for-staking",
+      "title": "Update the DepositSection frontend component to display the tax breakdown showing the deposited amount, 20% tax deduction, and net amount available for staking",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-adminfundsreleasesection-frontend-component-to-display-the-tax-breakdown-for-each-payout-showing-the-winning-amount-20-tax-deduction-and-net-payout-amount",
+      "title": "Update the AdminFundsReleaseSection frontend component to display the tax breakdown for each payout showing the winning amount, 20% tax deduction, and net payout amount",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-release-history-data-table-in-the-admin-interface-to-include-tax-amount-and-net-payout-columns-for-all-completed-fund-releases",
+      "title": "Update the release history data table in the admin interface to include tax amount and net payout columns for all completed fund releases",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -331,6 +356,42 @@
       "summary": "Remove backend functions related to user profile management including getUserProfile, createUserProfile, updateUserProfile, verifyPhone, resendVerificationCode, and getTotalMemberCount",
       "reqIds": [
         "REQ-38"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-35",
+      "summary": "Implement 20% tax deduction on staked amounts",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-36",
+      "summary": "Implement 20% tax deduction on withdrawal amounts",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-37",
+      "summary": "Add a 20% tax calculation field to the backend deposit transaction record type to store the tax amount deducted from each staked deposit",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-38",
+      "summary": "Update the deposit confirmation backend function to automatically deduct 20% tax from the deposited amount before crediting the user's effective balance",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-39",
+      "summary": "Add a 20% tax calculation to the backend fund release function that deducts tax from withdrawal amounts when releasing winnings to users",
+      "reqIds": [
+        "REQ-44"
       ],
       "status": "pending"
     }

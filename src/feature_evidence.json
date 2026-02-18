@@ -2,11 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-remove-the-profile-page-route-and-profilepage-component-from-the-frontend-application",
-      "featureTitle": "Remove the profile page route and ProfilePage component from the frontend application",
+      "featureId": "feature-update-the-depositsection-frontend-component-to-display-the-tax-breakdown-showing-the-deposited-amount-20-tax-deduction-and-net-amount-available-for-staking",
+      "featureTitle": "Update the DepositSection frontend component to display the tax breakdown showing the deposited amount, 20% tax deduction, and net amount available for staking",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/pages/ProfilePage.tsx"
+        "frontend/src/components/DepositSection.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -18,22 +17,15 @@
         "http-outcalls@3.0.0"
       ],
       "testIds": [
-        "REQ-36"
+        "REQ-45"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-remove-all-profile-related-components-including-profileheader-profiletabs-personalinfosection-bettinghistorysection-transactionhistorysection-settingssection-profilesetupmodal-and-phoneverificationmodal",
-      "featureTitle": "Remove all profile-related components including ProfileHeader, ProfileTabs, PersonalInfoSection, BettingHistorySection, TransactionHistorySection, SettingsSection, ProfileSetupModal, and PhoneVerificationModal",
+      "featureId": "feature-update-the-adminfundsreleasesection-frontend-component-to-display-the-tax-breakdown-for-each-payout-showing-the-winning-amount-20-tax-deduction-and-net-payout-amount",
+      "featureTitle": "Update the AdminFundsReleaseSection frontend component to display the tax breakdown for each payout showing the winning amount, 20% tax deduction, and net payout amount",
       "files": [
-        "frontend/src/components/BettingHistorySection.tsx",
-        "frontend/src/components/PersonalInfoSection.tsx",
-        "frontend/src/components/PhoneVerificationModal.tsx",
-        "frontend/src/components/ProfileHeader.tsx",
-        "frontend/src/components/ProfileSetupModal.tsx",
-        "frontend/src/components/ProfileTabs.tsx",
-        "frontend/src/components/SettingsSection.tsx",
-        "frontend/src/components/TransactionHistorySection.tsx"
+        "frontend/src/components/AdminFundsReleaseSection.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -45,15 +37,15 @@
         "http-outcalls@3.0.0"
       ],
       "testIds": [
-        "REQ-37"
+        "REQ-46"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-remove-react-query-hooks-related-to-profile-operations-including-usegetuserprofile-usecreateuserprofile-useupdateuserprofile-useverifyphone-useresendverificationcode-and-usegettotalmembercount-from-usequeries-ts",
-      "featureTitle": "Remove React Query hooks related to profile operations including useGetUserProfile, useCreateUserProfile, useUpdateUserProfile, useVerifyPhone, useResendVerificationCode, and useGetTotalMemberCount from useQueries.ts",
+      "featureId": "feature-update-the-release-history-data-table-in-the-admin-interface-to-include-tax-amount-and-net-payout-columns-for-all-completed-fund-releases",
+      "featureTitle": "Update the release history data table in the admin interface to include tax amount and net payout columns for all completed fund releases",
       "files": [
-        "frontend/src/hooks/useQueries.ts"
+        "frontend/src/pages/AdminPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -65,48 +57,7 @@
         "http-outcalls@3.0.0"
       ],
       "testIds": [
-        "REQ-39"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-remove-phone-validation-utilities-from-frontend-src-utils-phonevalidation-ts-as-they-are-only-used-by-profile-components",
-      "featureTitle": "Remove phone validation utilities from frontend/src/utils/phoneValidation.ts as they are only used by profile components",
-      "files": [
-        "frontend/src/utils/phoneValidation.ts"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "http-outcalls@3.0.0"
-      ],
-      "testIds": [
-        "REQ-40"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-remove-membercountcard-and-balancecard-components-as-they-are-only-used-in-the-profile-interface",
-      "featureTitle": "Remove MemberCountCard and BalanceCard components as they are only used in the profile interface",
-      "files": [
-        "frontend/src/components/BalanceCard.tsx",
-        "frontend/src/components/MemberCountCard.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "http-outcalls@3.0.0"
-      ],
-      "testIds": [
-        "REQ-41"
+        "REQ-47"
       ],
       "confidence": "high"
     }

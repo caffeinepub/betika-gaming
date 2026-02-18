@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Wallet, TrendingUp, History } from 'lucide-react';
 import DataTable from '../components/DataTable';
 
+const TAX_RATE = 0.20; // 20% tax
+
 export default function AdminPage() {
   const { identity } = useInternetIdentity();
   const { data: isAdmin, isLoading: adminCheckLoading } = useIsCallerAdmin();
@@ -30,14 +32,40 @@ export default function AdminPage() {
     );
   }
 
+  const calculateTax = (amount: bigint): number => {
+    return Math.floor(Number(amount) * TAX_RATE);
+  };
+
+  const calculateNetPayout = (amount: bigint): number => {
+    return Number(amount) - calculateTax(amount);
+  };
+
   const columns = [
     { key: 'username', label: 'User' },
     {
       key: 'amount',
-      label: 'Amount (KSh)',
+      label: 'Gross Amount (KSh)',
       format: (val: bigint) => (
-        <span className="text-betika-green font-medium">
+        <span className="font-medium">
           {Number(val).toLocaleString()}
+        </span>
+      ),
+    },
+    {
+      key: 'amount',
+      label: 'Tax (20%)',
+      format: (val: bigint) => (
+        <span className="text-orange-600 font-medium">
+          {calculateTax(val).toLocaleString()}
+        </span>
+      ),
+    },
+    {
+      key: 'amount',
+      label: 'Net Payout (KSh)',
+      format: (val: bigint) => (
+        <span className="text-betika-green font-semibold">
+          {calculateNetPayout(val).toLocaleString()}
         </span>
       ),
     },

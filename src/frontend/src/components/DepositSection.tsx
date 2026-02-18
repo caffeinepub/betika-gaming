@@ -5,12 +5,13 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { useInitiateDeposit } from '../hooks/useQueries';
-import { Copy, CheckCircle, Wallet, ArrowRight, Info, Smartphone, Banknote } from 'lucide-react';
+import { Copy, CheckCircle, Wallet, ArrowRight, Info, Smartphone, Banknote, Receipt } from 'lucide-react';
 import { toast } from 'sonner';
 import { Currency } from '../backend';
 
 const MPESA_PAYBILL = '400004';
 const ACCOUNT_NUMBER = '0116828013';
+const TAX_RATE = 0.20; // 20% tax
 
 // Currency display names and symbols
 const currencyInfo: Record<Currency, { name: string; symbol: string }> = {
@@ -46,6 +47,8 @@ export default function DepositSection() {
     originalAmount: number;
     currency: Currency;
     kesAmount: number;
+    taxAmount: number;
+    netAmount: number;
     rate: number;
   } | null>(null);
   
@@ -66,6 +69,14 @@ export default function DepositSection() {
     return Math.floor((amount * rate) / 100);
   };
 
+  const calculateTax = (kesAmount: number): number => {
+    return Math.floor(kesAmount * TAX_RATE);
+  };
+
+  const calculateNetAmount = (kesAmount: number): number => {
+    return kesAmount - calculateTax(kesAmount);
+  };
+
   const handleInitiateDeposit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -82,6 +93,8 @@ export default function DepositSection() {
       });
       
       const kesAmount = calculateKESAmount(amountNum, currency);
+      const taxAmount = calculateTax(kesAmount);
+      const netAmount = calculateNetAmount(kesAmount);
       const rate = exchangeRates[currency] / 100;
       
       setTransactionId(txId);
@@ -89,6 +102,8 @@ export default function DepositSection() {
         originalAmount: amountNum,
         currency,
         kesAmount,
+        taxAmount,
+        netAmount,
         rate,
       });
       
@@ -123,40 +138,54 @@ export default function DepositSection() {
           </CardContent>
         </Card>
 
-        {/* Currency Conversion Summary */}
-        {depositDetails.currency !== Currency.KES && (
-          <Card className="border-2 border-betika-green/30 bg-betika-green/5">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Banknote className="h-5 w-5 text-betika-green" />
-                Currency Conversion Details
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex justify-between items-center py-2 border-b">
-                <span className="text-muted-foreground">Original Amount:</span>
-                <span className="font-semibold text-lg">
-                  {currencyInfo[depositDetails.currency].symbol} {depositDetails.originalAmount.toLocaleString()} {depositDetails.currency}
-                </span>
-              </div>
-              <div className="flex justify-between items-center py-2 border-b">
-                <span className="text-muted-foreground">Exchange Rate:</span>
-                <span className="font-medium">
-                  1 {depositDetails.currency} = {depositDetails.rate.toFixed(2)} KES
-                </span>
-              </div>
-              <div className="flex justify-between items-center py-3 bg-betika-green/10 rounded-lg px-3">
-                <span className="font-semibold text-betika-green">Amount to be Credited:</span>
-                <span className="font-bold text-xl text-betika-green">
-                  KSh {depositDetails.kesAmount.toLocaleString()}
-                </span>
-              </div>
-              <p className="text-xs text-muted-foreground text-center pt-2">
-                Your deposit of {currencyInfo[depositDetails.currency].symbol}{depositDetails.originalAmount.toLocaleString()} {depositDetails.currency} will be converted to KSh {depositDetails.kesAmount.toLocaleString()} at the rate of {depositDetails.rate.toFixed(2)}
-              </p>
-            </CardContent>
-          </Card>
-        )}
+        {/* Tax Breakdown Card */}
+        <Card className="border-2 border-betika-green/30 bg-betika-green/5">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <Receipt className="h-5 w-5 text-betika-green" />
+              Deposit Breakdown
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {depositDetails.currency !== Currency.KES && (
+              <>
+                <div className="flex justify-between items-center py-2 border-b">
+                  <span className="text-muted-foreground">Original Amount:</span>
+                  <span className="font-semibold text-lg">
+                    {currencyInfo[depositDetails.currency].symbol} {depositDetails.originalAmount.toLocaleString()} {depositDetails.currency}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b">
+                  <span className="text-muted-foreground">Exchange Rate:</span>
+                  <span className="font-medium">
+                    1 {depositDetails.currency} = {depositDetails.rate.toFixed(2)} KES
+                  </span>
+                </div>
+              </>
+            )}
+            <div className="flex justify-between items-center py-2 border-b">
+              <span className="text-muted-foreground">Gross Deposit Amount:</span>
+              <span className="font-semibold text-lg">
+                KSh {depositDetails.kesAmount.toLocaleString()}
+              </span>
+            </div>
+            <div className="flex justify-between items-center py-2 border-b">
+              <span className="text-muted-foreground">Tax (20%):</span>
+              <span className="font-semibold text-lg text-orange-600">
+                - KSh {depositDetails.taxAmount.toLocaleString()}
+              </span>
+            </div>
+            <div className="flex justify-between items-center py-3 bg-betika-green/10 rounded-lg px-3">
+              <span className="font-semibold text-betika-green">Net Amount Available for Staking:</span>
+              <span className="font-bold text-xl text-betika-green">
+                KSh {depositDetails.netAmount.toLocaleString()}
+              </span>
+            </div>
+            <p className="text-xs text-muted-foreground text-center pt-2">
+              A 20% tax has been applied to your deposit. The net amount of KSh {depositDetails.netAmount.toLocaleString()} will be available for staking after payment confirmation.
+            </p>
+          </CardContent>
+        </Card>
 
         <Card>
           <CardHeader>
@@ -258,7 +287,7 @@ export default function DepositSection() {
                     <div className="flex-1">
                       <p className="font-medium mb-1">Enter Amount</p>
                       <p className="text-sm text-muted-foreground">
-                        Enter <span className="font-semibold text-betika-green">KSh {depositDetails.kesAmount.toLocaleString()}</span>
+                        Enter <span className="font-semibold text-betika-green">KSh {depositDetails.kesAmount.toLocaleString()}</span> (gross amount including tax)
                       </p>
                     </div>
                   </div>
@@ -277,7 +306,7 @@ export default function DepositSection() {
                 <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg">
                   <p className="text-sm text-blue-900 dark:text-blue-100">
                     <Info className="inline h-4 w-4 mr-1" />
-                    You will receive an M-PESA confirmation message. Your account will be credited within 5 minutes.
+                    You will receive an M-PESA confirmation message. Your account will be credited with KSh {depositDetails.netAmount.toLocaleString()} (after 20% tax) within 5 minutes.
                   </p>
                 </div>
               </div>
@@ -338,10 +367,20 @@ export default function DepositSection() {
               placeholder={`Enter amount in ${currency}`}
               required
             />
-            {amount && parseFloat(amount) > 0 && currency !== Currency.KES && (
-              <p className="text-sm text-betika-green font-medium">
-                ≈ KSh {calculateKESAmount(parseFloat(amount), currency).toLocaleString()} will be credited to your account
-              </p>
+            {amount && parseFloat(amount) > 0 && (
+              <div className="space-y-1">
+                {currency !== Currency.KES && (
+                  <p className="text-sm text-muted-foreground">
+                    ≈ KSh {calculateKESAmount(parseFloat(amount), currency).toLocaleString()} (gross amount)
+                  </p>
+                )}
+                <p className="text-sm font-medium text-orange-600">
+                  Tax (20%): KSh {calculateTax(calculateKESAmount(parseFloat(amount), currency)).toLocaleString()}
+                </p>
+                <p className="text-sm font-semibold text-betika-green">
+                  Net amount for staking: KSh {calculateNetAmount(calculateKESAmount(parseFloat(amount), currency)).toLocaleString()}
+                </p>
+              </div>
             )}
           </div>
 
@@ -374,11 +413,18 @@ export default function DepositSection() {
               <span>M-PESA PayBill:</span>
               <span className="font-bold text-betika-green text-lg">{MPESA_PAYBILL}</span>
             </div>
-            <div className="flex items-center justify-between py-2">
+            <div className="flex items-center justify-between py-2 border-b">
               <span>Account Number:</span>
               <span className="font-semibold text-foreground">{ACCOUNT_NUMBER}</span>
             </div>
+            <div className="flex items-center justify-between py-2">
+              <span>Tax Rate:</span>
+              <span className="font-semibold text-orange-600">20%</span>
+            </div>
           </div>
+          <p className="text-xs text-muted-foreground mt-3">
+            Note: A 20% tax is automatically deducted from all deposits. The net amount will be available for staking.
+          </p>
         </div>
       </CardContent>
     </Card>

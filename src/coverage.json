@@ -1,93 +1,67 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-18T22:08:32.813Z",
+  "generatedAt": "2026-02-18T22:24:26.979Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
     "total": 6,
-    "implemented": 5,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-36",
-        "summary": "Remove the profile page route and ProfilePage component from the frontend application",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/ProfilePage.tsx",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/ProfilePage.tsx",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-37",
-        "summary": "Remove all profile-related components including ProfileHeader, ProfileTabs, PersonalInfoSection, BettingHistorySection, TransactionHistorySection, SettingsSection, ProfileSetupModal, and PhoneVerificationModal",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/ProfileHeader.tsx",
-          "frontend/src/components/ProfileTabs.tsx",
-          "frontend/src/components/PersonalInfoSection.tsx",
-          "frontend/src/components/BettingHistorySection.tsx",
-          "frontend/src/components/TransactionHistorySection.tsx",
-          "frontend/src/components/SettingsSection.tsx",
-          "frontend/src/components/ProfileSetupModal.tsx",
-          "frontend/src/components/PhoneVerificationModal.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/ProfileHeader.tsx",
-          "frontend/src/components/ProfileTabs.tsx",
-          "frontend/src/components/PersonalInfoSection.tsx",
-          "frontend/src/components/BettingHistorySection.tsx",
-          "frontend/src/components/TransactionHistorySection.tsx",
-          "frontend/src/components/SettingsSection.tsx",
-          "frontend/src/components/ProfileSetupModal.tsx",
-          "frontend/src/components/PhoneVerificationModal.tsx"
-        ]
-      },
-      {
-        "id": "REQ-38",
-        "summary": "Remove backend functions related to user profile management including getUserProfile, createUserProfile, updateUserProfile, verifyPhone, resendVerificationCode, and getTotalMemberCount",
+        "id": "REQ-42",
+        "summary": "Add a 20% tax calculation field to the backend deposit transaction record type to store the tax amount deducted from each staked deposit",
         "status": "unknown",
         "plannedFiles": [],
         "matchedFiles": []
       },
       {
-        "id": "REQ-39",
-        "summary": "Remove React Query hooks related to profile operations including useGetUserProfile, useCreateUserProfile, useUpdateUserProfile, useVerifyPhone, useResendVerificationCode, and useGetTotalMemberCount from useQueries.ts",
+        "id": "REQ-43",
+        "summary": "Update the deposit confirmation backend function to automatically deduct 20% tax from the deposited amount before crediting the user's effective balance",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-44",
+        "summary": "Add a 20% tax calculation to the backend fund release function that deducts tax from withdrawal amounts when releasing winnings to users",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-45",
+        "summary": "Update the DepositSection frontend component to display the tax breakdown showing the deposited amount, 20% tax deduction, and net amount available for staking",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/hooks/useQueries.ts"
+          "frontend/src/components/DepositSection.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/hooks/useQueries.ts"
+          "frontend/src/components/DepositSection.tsx"
         ]
       },
       {
-        "id": "REQ-40",
-        "summary": "Remove phone validation utilities from frontend/src/utils/phoneValidation.ts as they are only used by profile components",
+        "id": "REQ-46",
+        "summary": "Update the AdminFundsReleaseSection frontend component to display the tax breakdown for each payout showing the winning amount, 20% tax deduction, and net payout amount",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/utils/phoneValidation.ts"
+          "frontend/src/components/AdminFundsReleaseSection.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/utils/phoneValidation.ts"
+          "frontend/src/components/AdminFundsReleaseSection.tsx"
         ]
       },
       {
-        "id": "REQ-41",
-        "summary": "Remove MemberCountCard and BalanceCard components as they are only used in the profile interface",
+        "id": "REQ-47",
+        "summary": "Update the release history data table in the admin interface to include tax amount and net payout columns for all completed fund releases",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/MemberCountCard.tsx",
-          "frontend/src/components/BalanceCard.tsx"
+          "frontend/src/pages/AdminPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/MemberCountCard.tsx",
-          "frontend/src/components/BalanceCard.tsx"
+          "frontend/src/pages/AdminPage.tsx"
         ]
       }
     ]
@@ -99,25 +73,13 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
     "frontend/src/backend.d.ts",
     "frontend/src/backend.ts",
-    "frontend/src/components/BalanceCard.tsx",
-    "frontend/src/components/BettingHistorySection.tsx",
-    "frontend/src/components/MemberCountCard.tsx",
-    "frontend/src/components/PersonalInfoSection.tsx",
-    "frontend/src/components/PhoneVerificationModal.tsx",
-    "frontend/src/components/ProfileHeader.tsx",
-    "frontend/src/components/ProfileSetupModal.tsx",
-    "frontend/src/components/ProfileTabs.tsx",
-    "frontend/src/components/SettingsSection.tsx",
-    "frontend/src/components/TransactionHistorySection.tsx",
+    "frontend/src/components/AdminFundsReleaseSection.tsx",
+    "frontend/src/components/DepositSection.tsx",
     "frontend/src/declarations/backend.did.d.ts",
     "frontend/src/declarations/backend.did.js",
-    "frontend/src/hooks/useQueries.ts",
     "frontend/src/pages/AdminPage.tsx",
-    "frontend/src/pages/ProfilePage.tsx",
-    "frontend/src/utils/phoneValidation.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

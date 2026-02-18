@@ -14,6 +14,15 @@ actor {
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
 
+  let transactions = Map.empty<Nat, DepositTransaction>();
+  let winningRecords = Map.empty<Principal.Principal, WinningRecord>();
+  let userProfiles = Map.empty<Principal.Principal, UserProfile>();
+
+  var nextTransactionId = 0;
+
+  let MAIN_ACCOUNT = "0116828013";
+  let MPESA_PAYBILL = "400004";
+
   public type Currency = {
     #KES;
     #USD;
@@ -24,7 +33,6 @@ actor {
     #ZAR;
     #ZMW;
     #GBP;
-    // Add other relevant currencies as needed
   };
 
   public type DepositTransaction = {
@@ -33,6 +41,7 @@ actor {
     originalAmount : Nat;
     currency : Currency;
     convertedAmountKES : Nat;
+    taxAmount : Nat; // 20% tax field
     confirmed : Bool;
     account : Text;
     mpesaPaybill : Text;
@@ -41,23 +50,40 @@ actor {
   public type WinningRecord = {
     user : Principal.Principal;
     amount : Nat;
-    isPaid : Bool; // Indicates if the winning amount has been paid out
+    isPaid : Bool;
   };
 
-  let transactions = Map.empty<Nat, DepositTransaction>();
-  let winningRecords = Map.empty<Principal.Principal, WinningRecord>();
-  var nextTransactionId = 0;
+  public type UserProfile = {
+    name : Text;
+  };
 
-  let MAIN_ACCOUNT = "0116828013";
-  let MPESA_PAYBILL = "400004"; // Updated paybill number
-
-  // Function to fetch live exchange rates (placeholder)
   public query func transform(input : OutCall.TransformationInput) : async OutCall.TransformationOutput {
     OutCall.transform(input);
   };
 
+  public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can view profiles");
+    };
+    userProfiles.get(caller);
+  };
+
+  public query ({ caller }) func getUserProfile(user : Principal.Principal) : async ?UserProfile {
+    if (caller != user and not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Can only view your own profile");
+    };
+    userProfiles.get(user);
+  };
+
+  public shared ({ caller }) func saveCallerUserProfile(profile : UserProfile) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can save profiles");
+    };
+    userProfiles.add(caller, profile);
+  };
+
   func getLiveExchangeRate(_currency : Currency) : async Nat {
-    150; // Placeholder: 1 USD = 150 KES
+    150;
   };
 
   func getExchangeRate(currency : Currency) : Nat {
@@ -82,13 +108,21 @@ actor {
     (amount * rate) / 100;
   };
 
-  // Record deposit transaction for main account
+  func computeTax(amount : Nat) : Nat {
+    (amount * 20) / 100;
+  };
+
+  func afterTaxAmount(amount : Nat) : Nat {
+    amount - computeTax(amount);
+  };
+
   public shared ({ caller }) func initiateDeposit(currency : Currency, amount : Nat) : async Nat {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only users can deposit");
     };
 
     let convertedAmount = await convertToKES(currency, amount);
+    let tax = computeTax(convertedAmount);
 
     let transactionId = nextTransactionId;
     let transaction : DepositTransaction = {
@@ -97,6 +131,7 @@ actor {
       originalAmount = amount;
       currency;
       convertedAmountKES = convertedAmount;
+      taxAmount = tax;
       confirmed = false;
       account = MAIN_ACCOUNT;
       mpesaPaybill = MPESA_PAYBILL;
@@ -107,7 +142,6 @@ actor {
     transactionId;
   };
 
-  // Confirm deposit and update user balance
   public shared ({ caller }) func confirmDeposit(transactionId : Nat) : async () {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can confirm deposits");
@@ -131,26 +165,33 @@ actor {
     };
   };
 
-  // Additional functionality for winning records and payouts
-  // Function to record a user's win
   public shared ({ caller }) func recordWin(user : Principal.Principal, amount : Nat) : async () {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can record wins");
     };
 
+    // Verify the user exists and has at least user role
+    if (not (AccessControl.hasPermission(accessControlState, user, #user))) {
+      Runtime.trap("Cannot record win for non-registered user");
+    };
+
     let record : WinningRecord = {
       user;
       amount;
-      isPaid = false; // Mark as unpaid initially
+      isPaid = false;
     };
 
     winningRecords.add(user, record);
   };
 
-  // Function for admin to manually release funds to a winner
   public shared ({ caller }) func releaseWinningsToUser(user : Principal.Principal) : async () {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can release winnings");
+    };
+
+    // Verify the user exists and has at least user role
+    if (not (AccessControl.hasPermission(accessControlState, user, #user))) {
+      Runtime.trap("Cannot release winnings to non-registered user");
     };
 
     switch (winningRecords.get(user)) {
@@ -161,23 +202,18 @@ actor {
         if (winningRecord.isPaid) {
           Runtime.trap("Winnings have already been paid to this user");
         };
-
-        // Simulate payment out here.
-        let updatedRecord : WinningRecord = {
-          winningRecord with isPaid = true;
-        };
-        winningRecords.add(user, updatedRecord);
+        winningRecords.add(user, { winningRecord with isPaid = true });
       };
     };
   };
 
-  // Repeat similar conversion updates for admin deposit records
   public shared ({ caller }) func recordAdminDeposit(currency : Currency, amount : Nat) : async Nat {
     if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can record deposits");
     };
 
     let convertedAmount = await convertToKES(currency, amount);
+    let tax = computeTax(convertedAmount);
 
     let transactionId = nextTransactionId;
     let transaction : DepositTransaction = {
@@ -186,7 +222,8 @@ actor {
       originalAmount = amount;
       currency;
       convertedAmountKES = convertedAmount;
-      confirmed = true; // Admin deposits are instantly confirmed
+      taxAmount = tax;
+      confirmed = true;
       account = MAIN_ACCOUNT;
       mpesaPaybill = MPESA_PAYBILL;
     };

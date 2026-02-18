@@ -29,6 +29,7 @@ export interface TransformationOutput {
   'body' : Uint8Array,
   'headers' : Array<http_header>,
 }
+export interface UserProfile { 'name' : string }
 export type UserRole = { 'admin' : null } |
   { 'user' : null } |
   { 'guest' : null };
@@ -42,12 +43,15 @@ export interface _SERVICE {
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'confirmDeposit' : ActorMethod<[bigint], undefined>,
+  'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'initiateDeposit' : ActorMethod<[Currency, bigint], bigint>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'recordAdminDeposit' : ActorMethod<[Currency, bigint], bigint>,
   'recordWin' : ActorMethod<[Principal, bigint], undefined>,
   'releaseWinningsToUser' : ActorMethod<[Principal], undefined>,
+  'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'transform' : ActorMethod<[TransformationInput], TransformationOutput>,
 }
 export declare const idlService: IDL.ServiceClass;

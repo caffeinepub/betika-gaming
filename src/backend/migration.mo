@@ -3,21 +3,18 @@ import Nat "mo:core/Nat";
 import Principal "mo:core/Principal";
 
 module {
-  public type OldProfile = {
-    username : Text;
-    email : Text;
-    walletAddress : Text;
-    balance : Nat;
+  type OldDepositTransaction = {
+    transactionId : Nat;
+    user : Principal.Principal;
+    originalAmount : Nat;
+    currency : OldCurrency;
+    convertedAmountKES : Nat;
+    confirmed : Bool;
+    account : Text;
+    mpesaPaybill : Text;
   };
 
-  public type OldActor = {
-    userProfiles : Map.Map<Principal.Principal, OldProfile>;
-    transactions : Map.Map<Nat, OldDepositTransaction>;
-    winningRecords : Map.Map<Principal.Principal, OldWinningRecord>;
-    nextTransactionId : Nat;
-  };
-
-  public type OldCurrency = {
+  type OldCurrency = {
     #KES;
     #USD;
     #EUR;
@@ -29,34 +26,48 @@ module {
     #GBP;
   };
 
-  public type OldDepositTransaction = {
+  type OldActor = {
+    transactions : Map.Map<Nat, OldDepositTransaction>;
+  };
+
+  type NewDepositTransaction = {
     transactionId : Nat;
     user : Principal.Principal;
     originalAmount : Nat;
-    currency : OldCurrency;
+    currency : NewCurrency;
     convertedAmountKES : Nat;
+    taxAmount : Nat;
     confirmed : Bool;
     account : Text;
     mpesaPaybill : Text;
   };
 
-  public type OldWinningRecord = {
-    user : Principal.Principal;
-    amount : Nat;
-    isPaid : Bool;
+  type NewCurrency = {
+    #KES;
+    #USD;
+    #EUR;
+    #UGX;
+    #TZS;
+    #MWK;
+    #ZAR;
+    #ZMW;
+    #GBP;
   };
 
-  public type NewActor = {
-    transactions : Map.Map<Nat, OldDepositTransaction>;
-    winningRecords : Map.Map<Principal.Principal, OldWinningRecord>;
-    nextTransactionId : Nat;
+  type NewActor = {
+    transactions : Map.Map<Nat, NewDepositTransaction>;
   };
 
   public func run(old : OldActor) : NewActor {
-    {
-      transactions = old.transactions;
-      winningRecords = old.winningRecords;
-      nextTransactionId = old.nextTransactionId;
-    };
+    let newTransactions = old.transactions.map<Nat, OldDepositTransaction, NewDepositTransaction>(
+      func(_transactionId, oldTransaction) {
+        let taxAmount = (oldTransaction.convertedAmountKES * 20) / 100;
+        {
+          oldTransaction with
+          taxAmount
+        };
+      }
+    );
+    { transactions = newTransactions };
   };
-}
+};

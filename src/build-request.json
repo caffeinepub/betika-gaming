@@ -1,144 +1,135 @@
 {
   "kind": "build_request",
-  "title": "Remove profile functionality",
+  "title": "Implement 20% tax deduction on staked and withdrawal amounts",
   "projectName": "Betika Casino",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-36",
-      "text": "Remove the profile page route and ProfilePage component from the frontend application",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-final"
-        ],
-        "quotes": [
-          "Remove profile only"
-        ]
-      },
-      "acceptanceCriteria": [
-        "ProfilePage.tsx is removed from frontend/src/pages/",
-        "Profile route is removed from App.tsx router configuration",
-        "Application builds and runs without errors after profile removal"
-      ]
-    },
-    {
-      "id": "REQ-37",
-      "text": "Remove all profile-related components including ProfileHeader, ProfileTabs, PersonalInfoSection, BettingHistorySection, TransactionHistorySection, SettingsSection, ProfileSetupModal, and PhoneVerificationModal",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-final"
-        ],
-        "quotes": [
-          "Remove profile only"
-        ]
-      },
-      "acceptanceCriteria": [
-        "ProfileHeader.tsx is removed from frontend/src/components/",
-        "ProfileTabs.tsx is removed from frontend/src/components/",
-        "PersonalInfoSection.tsx is removed from frontend/src/components/",
-        "BettingHistorySection.tsx is removed from frontend/src/components/",
-        "TransactionHistorySection.tsx is removed from frontend/src/components/",
-        "SettingsSection.tsx is removed from frontend/src/components/",
-        "ProfileSetupModal.tsx is removed from frontend/src/components/",
-        "PhoneVerificationModal.tsx is removed from frontend/src/components/",
-        "No unused imports or references to removed components remain in the codebase"
-      ]
-    },
-    {
-      "id": "REQ-38",
-      "text": "Remove backend functions related to user profile management including getUserProfile, createUserProfile, updateUserProfile, verifyPhone, resendVerificationCode, and getTotalMemberCount",
+      "id": "REQ-42",
+      "text": "Add a 20% tax calculation field to the backend deposit transaction record type to store the tax amount deducted from each staked deposit",
       "target": "backend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-user-latest"
         ],
         "quotes": [
-          "Remove profile only"
+          "Automate a tax of 20 % of the staked amount"
         ]
       },
       "acceptanceCriteria": [
-        "getUserProfile function is removed from backend/main.mo",
-        "createUserProfile function is removed from backend/main.mo",
-        "updateUserProfile function is removed from backend/main.mo",
-        "verifyPhone function is removed from backend/main.mo",
-        "resendVerificationCode function is removed from backend/main.mo",
-        "getTotalMemberCount function is removed from backend/main.mo",
-        "UserProfile type definition and related stable variable storage are removed",
-        "Backend compiles successfully after profile function removal"
+        "Backend transaction record includes a tax field storing 20% of the deposit amount",
+        "Tax amount is calculated automatically when a deposit is confirmed",
+        "Tax calculation is applied to the converted KES amount after currency conversion"
       ]
     },
     {
-      "id": "REQ-39",
-      "text": "Remove React Query hooks related to profile operations including useGetUserProfile, useCreateUserProfile, useUpdateUserProfile, useVerifyPhone, useResendVerificationCode, and useGetTotalMemberCount from useQueries.ts",
-      "target": "frontend",
+      "id": "REQ-43",
+      "text": "Update the deposit confirmation backend function to automatically deduct 20% tax from the deposited amount before crediting the user's effective balance",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-user-latest"
         ],
         "quotes": [
-          "Remove profile only"
+          "Automate a tax of 20 % of the staked amount"
         ]
       },
       "acceptanceCriteria": [
-        "useGetUserProfile hook is removed from frontend/src/hooks/useQueries.ts",
-        "useCreateUserProfile hook is removed from frontend/src/hooks/useQueries.ts",
-        "useUpdateUserProfile hook is removed from frontend/src/hooks/useQueries.ts",
-        "useVerifyPhone hook is removed from frontend/src/hooks/useQueries.ts",
-        "useResendVerificationCode hook is removed from frontend/src/hooks/useQueries.ts",
-        "useGetTotalMemberCount hook is removed from frontend/src/hooks/useQueries.ts",
-        "No components attempt to import or use the removed hooks"
+        "When a deposit is confirmed, 20% of the amount is calculated as tax",
+        "The net amount (80% of deposit) is available to the user for staking",
+        "Tax amount is stored separately in the transaction record",
+        "Total funds in holding account 0116828013 include both net amount and tax"
       ]
     },
     {
-      "id": "REQ-40",
-      "text": "Remove phone validation utilities from frontend/src/utils/phoneValidation.ts as they are only used by profile components",
-      "target": "frontend",
+      "id": "REQ-44",
+      "text": "Add a 20% tax calculation to the backend fund release function that deducts tax from withdrawal amounts when releasing winnings to users",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-user-latest"
         ],
         "quotes": [
-          "Remove profile only"
+          "Automate a tax of 20 % of the staked amount and withdrawal amount"
         ]
       },
       "acceptanceCriteria": [
-        "phoneValidation.ts is removed from frontend/src/utils/",
-        "No remaining components reference phone validation functions"
+        "When admin releases winnings, 20% tax is automatically calculated",
+        "The net payout amount (80% of winnings) is recorded as released",
+        "Tax amount is tracked separately in the winning record",
+        "Fund release confirmation shows both gross amount and net amount after tax"
       ]
     },
     {
-      "id": "REQ-41",
-      "text": "Remove MemberCountCard and BalanceCard components as they are only used in the profile interface",
+      "id": "REQ-45",
+      "text": "Update the DepositSection frontend component to display the tax breakdown showing the deposited amount, 20% tax deduction, and net amount available for staking",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-user-latest"
         ],
         "quotes": [
-          "Remove profile only"
+          "Automate a tax of 20 % of the staked amount"
         ]
       },
       "acceptanceCriteria": [
-        "MemberCountCard.tsx is removed from frontend/src/components/",
-        "BalanceCard.tsx is removed from frontend/src/components/",
-        "No remaining components attempt to import these components"
+        "Deposit interface shows gross deposit amount entered by user",
+        "Tax amount (20% of deposit) is displayed clearly",
+        "Net amount available for staking (80% of deposit) is prominently shown",
+        "Tax breakdown appears before user confirms the deposit"
+      ]
+    },
+    {
+      "id": "REQ-46",
+      "text": "Update the AdminFundsReleaseSection frontend component to display the tax breakdown for each payout showing the winning amount, 20% tax deduction, and net payout amount",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-latest"
+        ],
+        "quotes": [
+          "withdrawal amount"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin interface shows gross winning amount for each pending payout",
+        "Tax amount (20% of winnings) is displayed clearly",
+        "Net payout amount (80% of winnings) is shown as the amount to be released",
+        "Confirmation dialog includes tax breakdown before releasing funds"
+      ]
+    },
+    {
+      "id": "REQ-47",
+      "text": "Update the release history data table in the admin interface to include tax amount and net payout columns for all completed fund releases",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-latest"
+        ],
+        "quotes": [
+          "withdrawal amount"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Release history table shows gross winning amount column",
+        "Tax amount column displays 20% deduction for each release",
+        "Net payout column shows the actual amount released to the user",
+        "All amounts are displayed in KES with proper formatting"
       ]
     }
   ],
   "constraints": [
-    "Keep the deposit functionality (DepositSection component) intact as it may be used elsewhere",
-    "Keep the admin functionality (AdminPage, AdminFundsReleaseSection) intact",
-    "Keep the authentication system (Internet Identity hooks) intact",
-    "Do not modify backend transaction and deposit logic unrelated to profile management"
+    "Tax rate must be exactly 20% for both deposits and withdrawals",
+    "Tax calculations must be applied to KES amounts after currency conversion",
+    "Existing transaction and winning records must remain intact during backend updates",
+    "Tax deductions must be transparent and visible to both users and admins"
   ],
   "nonGoals": [
-    "Removing deposit or transaction functionality",
-    "Removing admin interfaces or fund release capabilities",
-    "Removing authentication system or Internet Identity integration",
-    "Modifying the M-PESA paybill 400004 payment system",
-    "Removing multi-currency support for deposits"
+    "Variable or configurable tax rates",
+    "Tax exemptions or special cases",
+    "Separate tax accounts or tax remittance features",
+    "Tax reporting or compliance documentation",
+    "Refunding of taxes on cancelled transactions"
   ],
   "imageRequirements": {
     "required": [],
