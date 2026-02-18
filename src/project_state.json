@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 19,
+  "projectStateVersion": 23,
   "summary": "Betting and casino app similar to BETIKA with casino games and live games",
   "architectural_notes": [
     "Multi-section app architecture: casino games, live games, and user profiles",
@@ -10,8 +10,10 @@
     "M-PESA paybill updated to 400004",
     "Tax system: 20% deduction applied to both stakes and withdrawals"
   ],
-  "known_issues": [],
-  "isFixRequest": false,
+  "known_issues": [
+    "Login flow is still difficult for users despite recent improvements"
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-a-user-profile-page-with-sections-for-account-information-betting-history-and-wallet-balance-display",
@@ -308,6 +310,62 @@
         "REQ-51"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-a-navigation-link-or-button-in-the-adminpage-component-that-directs-administrators-to-the-games-section-of-the-application",
+      "title": "Add a navigation link or button in the AdminPage component that directs administrators to the games section of the application",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-or-update-the-games-section-routing-to-ensure-admins-can-access-it-from-the-admin-dashboard",
+      "title": "Create or update the games section routing to ensure admins can access it from the admin dashboard",
+      "reqIds": [
+        "REQ-53"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-accessdeniedscreen-full-page-blocking-approach-with-an-inline-authentication-prompt-that-allows-users-to-see-the-application-content-while-displaying-a-prominent-sign-in-banner-or-modal-overlay",
+      "title": "Replace the AccessDeniedScreen full-page blocking approach with an inline authentication prompt that allows users to see the application content while displaying a prominent sign-in banner or modal overlay",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-automatic-login-persistence-that-immediately-authenticates-users-when-they-return-to-the-application-if-they-have-an-active-internet-identity-session-without-requiring-manual-login",
+      "title": "Add automatic login persistence that immediately authenticates users when they return to the application if they have an active Internet Identity session, without requiring manual login",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-reduce-the-number-of-clicks-required-for-internet-identity-authentication-by-implementing-a-one-click-login-flow-that-opens-the-internet-identity-authentication-window-immediately-when-the-user-clicks-the-sign-in-button",
+      "title": "Reduce the number of clicks required for Internet Identity authentication by implementing a one-click login flow that opens the Internet Identity authentication window immediately when the user clicks the sign-in button",
+      "reqIds": [
+        "REQ-56"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-clear-visual-feedback-during-the-authentication-process-with-loading-indicators-that-show-the-user-their-login-request-is-being-processed",
+      "title": "Add clear visual feedback during the authentication process with loading indicators that show the user their login request is being processed",
+      "reqIds": [
+        "REQ-57"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-loginbutton-component-in-the-app-tsx-header-to-be-more-prominent-with-larger-size-stronger-visual-emphasis-using-betika-green-colors-and-actionable-text-like-sign-in-to-play-instead-of-just-login",
+      "title": "Update the LoginButton component in the App.tsx header to be more prominent with larger size, stronger visual emphasis using Betika green colors, and actionable text like 'Sign In to Play' instead of just 'Login'",
+      "reqIds": [
+        "REQ-58"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -430,6 +488,12 @@
     {
       "id": "AR-40",
       "summary": "Implement easy login system",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-41",
+      "summary": "Make admin section easier to navigate to the games",
       "reqIds": [],
       "status": "pending"
     }

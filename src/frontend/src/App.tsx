@@ -1,5 +1,6 @@
 import { RouterProvider, createRouter, createRoute, createRootRoute, Outlet } from '@tanstack/react-router';
 import AdminPage from './pages/AdminPage';
+import GamesPage from './pages/GamesPage';
 import { Toaster } from './components/ui/sonner';
 import { useInternetIdentity } from './hooks/useInternetIdentity';
 import LoginButton from './components/LoginButton';
@@ -13,11 +14,11 @@ function Layout() {
     <>
       <div className="min-h-screen flex flex-col">
         {/* Header */}
-        <header className="border-b border-border bg-card sticky top-0 z-50">
+        <header className="border-b border-border bg-card sticky top-0 z-50 shadow-sm">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-lg bg-betika-green flex items-center justify-center">
+                <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-betika-green to-betika-green-dark flex items-center justify-center shadow-md">
                   <span className="text-white font-bold text-xl">B</span>
                 </div>
                 <div>
@@ -58,7 +59,13 @@ const adminRoute = createRoute({
   component: AdminPage,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, adminRoute]);
+const gamesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/games',
+  component: GamesPage,
+});
+
+const routeTree = rootRoute.addChildren([indexRoute, adminRoute, gamesRoute]);
 
 const router = createRouter({ routeTree });
 

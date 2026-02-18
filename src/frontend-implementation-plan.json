@@ -1,85 +1,120 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Implement Easy Login System with Prominent UI Elements",
+  "title": "Simplify login flow and improve user experience",
   "requirements": [
     {
-      "id": "REQ-48",
-      "summary": "Add a prominent login button to the main application interface that triggers Internet Identity authentication",
+      "id": "REQ-54",
+      "summary": "Replace AccessDeniedScreen with inline authentication prompt allowing content visibility",
       "acceptanceCriteria": [
-        "Login button is prominently visible on the main application interface",
-        "Clicking the login button initiates the Internet Identity authentication flow",
-        "Button uses clear, user-friendly text like 'Login' or 'Sign In'",
-        "Button styling is consistent with the Betika green theme"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/LoginButton.tsx",
-          "operation": "create",
-          "description": "Create a reusable LoginButton component that integrates with the existing useInternetIdentity hook. The component displays 'Login' when logged out, 'Logout' when logged in, and shows loading state during authentication. Apply Betika green theme styling consistent with the brand colors defined in tailwind.config.js. Verify the authorization component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add the LoginButton component to the application header/navigation area to make it prominently visible on all pages. Position it in a consistent location that is easily discoverable by users. Ensure the button is rendered outside the router content so it appears on all routes."
-        }
-      ]
-    },
-    {
-      "id": "REQ-49",
-      "summary": "Update AccessDeniedScreen to provide a streamlined login experience with clear call-to-action messaging",
-      "acceptanceCriteria": [
-        "Login prompt uses simple, encouraging language that explains the benefit of logging in",
-        "Internet Identity login button is large, clearly visible, and easy to click",
-        "Screen design is clean and focused on the login action without unnecessary clutter"
+        "Users can view application content without being completely blocked by AccessDeniedScreen",
+        "A prominent, non-intrusive sign-in prompt is displayed for unauthenticated users",
+        "The sign-in prompt clearly explains the benefits of logging in and has a single-click Internet Identity button"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/AccessDeniedScreen.tsx",
           "operation": "modify",
-          "description": "Redesign the AccessDeniedScreen component with a streamlined, user-friendly layout. Replace technical language with simple, encouraging messaging that explains why logging in is beneficial. Make the Internet Identity login button larger and more prominent with clear call-to-action text. Remove unnecessary clutter and focus the design on the primary login action. Apply Betika green theme styling for consistency."
-        }
-      ]
-    },
-    {
-      "id": "REQ-50",
-      "summary": "Add persistent login state indication showing user identity information in the application header",
-      "acceptanceCriteria": [
-        "Logged-in users can see their authentication status in the application interface",
-        "User identity information or user menu is displayed in a consistent location (e.g., application header)",
-        "Login state persists across page refreshes using the existing useInternetIdentity hook"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/UserMenu.tsx",
-          "operation": "create",
-          "description": "Create a UserMenu component that displays when a user is logged in. The component should show the user's name from their profile (retrieved via getCallerUserProfile) instead of their principal ID. Include a dropdown or menu with user options. Use the existing useInternetIdentity hook to access identity state, which already persists across page refreshes. Style consistently with the Betika green theme. Verify the authorization component's usage instructions before implementing."
+          "description": "Convert AccessDeniedScreen from a full-page blocking component to an inline banner or modal overlay component that displays prominently but allows underlying content to remain visible. Add clear messaging about benefits of signing in and include a streamlined Internet Identity login button."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Integrate the UserMenu component into the application header alongside the LoginButton. Display the UserMenu when the user is authenticated and the LoginButton when they are not. Ensure the header layout accommodates both components appropriately and maintains visual consistency across authentication states."
+          "description": "Update App.tsx to render the modified inline authentication prompt component for unauthenticated users while still displaying page content underneath. Ensure the authentication prompt is visible across all routes but does not block interaction with public content."
+        },
+        {
+          "path": "frontend/src/pages/AdminPage.tsx",
+          "operation": "modify",
+          "description": "Ensure AdminPage continues to properly gate admin-only content while allowing the inline authentication prompt to appear for non-admin users attempting access."
+        },
+        {
+          "path": "frontend/src/pages/GamesPage.tsx",
+          "operation": "modify",
+          "description": "Ensure GamesPage properly handles authentication state and displays the inline prompt for unauthenticated users while showing available game content to guests."
         }
       ]
     },
     {
-      "id": "REQ-51",
-      "summary": "Add an easily accessible logout option for logged-in users",
+      "id": "REQ-55",
+      "summary": "Add automatic login persistence for returning users with active Internet Identity sessions",
       "acceptanceCriteria": [
-        "Logout button or option is visible and accessible to logged-in users",
-        "Clicking logout successfully terminates the Internet Identity session",
-        "After logout, the application returns to a logged-out state with login options visible"
+        "Users with active Internet Identity sessions are automatically authenticated on page load",
+        "No manual login action is required for users with valid sessions",
+        "The authentication check happens silently in the background during app initialization"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/UserMenu.tsx",
+          "path": "frontend/src/main.tsx",
           "operation": "modify",
-          "description": "Add a logout option within the UserMenu component. When clicked, call the clear() method from useInternetIdentity to terminate the session and clear the QueryClient cache to remove all cached application data including the user profile. Ensure the logout action transitions the UI back to the logged-out state where login options are visible. Verify the authorization component's usage instructions before implementing."
+          "description": "Add silent authentication check during app initialization that attempts to restore existing Internet Identity sessions automatically. This should happen before the main app content renders, checking for valid delegations and automatically logging in users with active sessions without requiring manual interaction."
         },
         {
           "path": "frontend/src/components/LoginButton.tsx",
           "operation": "modify",
-          "description": "Ensure the LoginButton component properly handles the logout flow by calling clear() and clearing the QueryClient cache when in the logged-in state. This provides an additional accessible logout option for users who may not interact with the UserMenu. Verify the authorization component's usage instructions before implementing."
+          "description": "Update LoginButton to properly reflect auto-login state during initialization and show appropriate loading indicators while the silent authentication check is in progress."
+        }
+      ]
+    },
+    {
+      "id": "REQ-56",
+      "summary": "Implement one-click login flow that immediately opens Internet Identity authentication",
+      "acceptanceCriteria": [
+        "Clicking the sign-in button immediately opens Internet Identity authentication",
+        "No intermediate confirmation dialogs or additional steps are required",
+        "The login flow completes in a single user action after Internet Identity authentication"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/LoginButton.tsx",
+          "operation": "modify",
+          "description": "Streamline the login handler to immediately invoke Internet Identity authentication when clicked, removing any intermediate steps or confirmation dialogs. Ensure the login() function from useInternetIdentity is called directly without additional UI prompts."
+        },
+        {
+          "path": "frontend/src/components/AccessDeniedScreen.tsx",
+          "operation": "modify",
+          "description": "Update the sign-in button in the inline authentication prompt to use the same one-click flow, immediately opening Internet Identity when clicked without intermediate steps."
+        }
+      ]
+    },
+    {
+      "id": "REQ-57",
+      "summary": "Add clear visual feedback with loading indicators during authentication",
+      "acceptanceCriteria": [
+        "A loading spinner or progress indicator appears when login is initiated",
+        "Status messages indicate authentication is in progress",
+        "Users receive immediate feedback when authentication succeeds or fails"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/LoginButton.tsx",
+          "operation": "modify",
+          "description": "Add loading spinner and status text that appears immediately when login is initiated. Display 'Authenticating...' or similar message during the login process. Show success/failure feedback with appropriate icons and messages based on authentication result."
+        },
+        {
+          "path": "frontend/src/components/AccessDeniedScreen.tsx",
+          "operation": "modify",
+          "description": "Add loading states and visual feedback to the inline authentication prompt's sign-in button, showing spinners and status messages during the authentication process to provide clear user feedback."
+        }
+      ]
+    },
+    {
+      "id": "REQ-58",
+      "summary": "Update LoginButton in App.tsx header with prominent styling and actionable text",
+      "acceptanceCriteria": [
+        "Login button is visually distinct and immediately noticeable in the header",
+        "Button uses Betika green brand colors for strong visual emphasis",
+        "Button text clearly communicates the action and benefit of signing in"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/LoginButton.tsx",
+          "operation": "modify",
+          "description": "Increase button size with larger padding and font-size. Apply Betika green brand colors (betika-green-500 for background, betika-green-600 for hover state) for strong visual emphasis. Change button text from 'Login' to 'Sign In to Play' to communicate the action and benefit. Add pulse animation or glow effect to draw attention."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure the LoginButton in the header has sufficient spacing and positioning to be immediately noticeable. Verify the button is prominently displayed and not overshadowed by other header elements."
         }
       ]
     }

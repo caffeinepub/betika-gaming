@@ -3,33 +3,42 @@ import { useIsCallerAdmin, useGetReleaseHistory } from '../hooks/useQueries';
 import AccessDeniedScreen from '../components/AccessDeniedScreen';
 import AdminFundsReleaseSection from '../components/AdminFundsReleaseSection';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Wallet, TrendingUp, History } from 'lucide-react';
+import { Wallet, TrendingUp, History, Gamepad2 } from 'lucide-react';
 import DataTable from '../components/DataTable';
+import { Link } from '@tanstack/react-router';
+import { Button } from '../components/ui/button';
 
 const TAX_RATE = 0.20; // 20% tax
 
 export default function AdminPage() {
-  const { identity } = useInternetIdentity();
+  const { identity, isInitializing } = useInternetIdentity();
   const { data: isAdmin, isLoading: adminCheckLoading } = useIsCallerAdmin();
   const { data: releaseHistory, isLoading: historyLoading } = useGetReleaseHistory();
 
   const isAuthenticated = !!identity;
 
   // Show access denied for unauthenticated users or non-admins
-  if (!isAuthenticated || (!adminCheckLoading && !isAdmin)) {
+  if (!isAuthenticated && !isInitializing) {
     return <AccessDeniedScreen />;
   }
 
-  // Show loading state while checking admin status
-  if (adminCheckLoading) {
+  // Show loading state while initializing or checking admin status
+  if (isInitializing || adminCheckLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-betika-green mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Verifying admin access...</p>
+          <p className="text-muted-foreground">
+            {isInitializing ? 'Loading...' : 'Verifying admin access...'}
+          </p>
         </div>
       </div>
     );
+  }
+
+  // Show access denied if authenticated but not admin
+  if (isAuthenticated && !isAdmin) {
+    return <AccessDeniedScreen />;
   }
 
   const calculateTax = (amount: bigint): number => {
@@ -86,9 +95,17 @@ export default function AdminPage() {
       {/* Page Header */}
       <div className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-6">
-          <div>
-            <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-            <p className="text-muted-foreground">Manage fund releases and payouts</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+              <p className="text-muted-foreground">Manage fund releases and payouts</p>
+            </div>
+            <Link to="/games">
+              <Button className="bg-betika-green hover:bg-betika-green-dark text-white">
+                <Gamepad2 className="h-4 w-4 mr-2" />
+                Manage Games
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

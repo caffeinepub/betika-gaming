@@ -1,5 +1,5 @@
 {
-  "frontend/src/App.tsx": "Main application component with TanStack Router setup, Layout component with sticky header containing logo and authentication UI (LoginButton/UserMenu), and routes for admin pages.",
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, Layout component with enhanced header styling including gradient logo and shadow effects, and routes for admin dashboard and games management pages.",
   "frontend/src/pages/ProfilePage.tsx": "Profile page managing authentication, profile setup with phone verification flow, and displaying the full profile interface with header and tabs.",
   "frontend/src/components/ProfileHeader.tsx": "Profile header with user avatar, info, balance card, conditional admin navigation button for admin users, and logout button.",
   "frontend/src/components/BalanceCard.tsx": "Prominent balance display card with green gradient background showing the user's account balance in KSh currency format with wallet icon.",
@@ -10,7 +10,7 @@
   "frontend/src/components/SettingsSection.tsx": "Settings section with form for updating user profile information (username, email, wallet address) with validation and save functionality.",
   "frontend/src/components/DataTable.tsx": "Reusable data table component with customizable columns, formatting support, and clean styling for displaying betting history and transaction records.",
   "frontend/src/components/ProfileSetupModal.tsx": "Profile setup modal with username, email, phone number (supporting all African countries with country detection), and optional wallet address fields, triggering phone verification flow after profile creation.",
-  "frontend/src/components/AccessDeniedScreen.tsx": "Redesigned access denied screen with streamlined user-friendly layout, encouraging messaging about benefits of logging in, prominent secure sign-in button, and feature highlights with Betika green theme styling.",
+  "frontend/src/components/AccessDeniedScreen.tsx": "Redesigned as an inline authentication banner with Alert component instead of full-page block, featuring prominent sign-in button, feature highlights in a grid layout, and clear messaging about benefits of logging in.",
   "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including deposits, user profiles (getCallerUserProfile, saveCallerUserProfile), admin operations (pending winners, release winnings, release history), and admin role checking.",
   "frontend/src/index.css": "Global styles with OKLCH color system including custom Betika green theme colors (primary green, dark, and light variants) for both light and dark modes with utility classes.",
   "frontend/tailwind.config.js": "Tailwind configuration extended with Betika green color palette (default, dark, light variants) integrated into the theme's color system.",
@@ -19,7 +19,8 @@
   "frontend/src/utils/phoneValidation.ts": "Comprehensive phone validation utility supporting 16 African countries with country detection, carrier detection (Kenya-specific), formatting, and normalization functions for both local and international phone number formats.",
   "frontend/src/components/PhoneVerificationModal.tsx": "Phone verification modal with 6-digit OTP input, resend code functionality with countdown timer, and verification submission handling for pan-African phone numbers.",
   "frontend/src/components/AdminFundsReleaseSection.tsx": "Admin-only component displaying pending winners with gross winning amount, 20% tax deduction, and net payout calculations, including detailed tax breakdown in the release confirmation dialog.",
-  "frontend/src/pages/AdminPage.tsx": "Admin dashboard page with authentication check, summary cards for holding account and payouts, fund release section, and release history table with tax calculations, showing AccessDeniedScreen for non-authenticated or non-admin users.",
-  "frontend/src/components/LoginButton.tsx": "Reusable login/logout button component integrating with useInternetIdentity hook, displaying loading states and clearing query cache on logout, styled with Betika green theme.",
-  "frontend/src/components/UserMenu.tsx": "User menu dropdown component displaying user avatar, name from profile, principal ID preview, and logout option with proper cache clearing on logout."
+  "frontend/src/pages/AdminPage.tsx": "Admin dashboard page with authentication and admin role checks, proper handling of initialization state, summary cards, fund release section, release history table, and improved loading states that distinguish between initialization and admin verification.",
+  "frontend/src/components/LoginButton.tsx": "Enhanced login button with prominent Betika green styling, larger size, pulse animation for unauthenticated state, loading states for both initialization and authentication, and \"Sign In to Play\" call-to-action text.",
+  "frontend/src/components/UserMenu.tsx": "User menu dropdown component displaying user avatar, name from profile, principal ID preview, and logout option with proper cache clearing on logout.",
+  "frontend/src/pages/GamesPage.tsx": "Games management page with authentication and admin role checks, proper handling of initialization state, summary cards for game statistics, placeholder content for future game management functionality, and improved loading states."
 }

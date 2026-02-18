@@ -2,8 +2,93 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-prominent-easy-to-find-login-button-to-the-main-application-interface-that-triggers-internet-identity-authentication-when-clicked",
-      "featureTitle": "Add a prominent, easy-to-find login button to the main application interface that triggers Internet Identity authentication when clicked",
+      "featureId": "feature-replace-the-accessdeniedscreen-full-page-blocking-approach-with-an-inline-authentication-prompt-that-allows-users-to-see-the-application-content-while-displaying-a-prominent-sign-in-banner-or-modal-overlay",
+      "featureTitle": "Replace the AccessDeniedScreen full-page blocking approach with an inline authentication prompt that allows users to see the application content while displaying a prominent sign-in banner or modal overlay",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AccessDeniedScreen.tsx",
+        "frontend/src/pages/AdminPage.tsx",
+        "frontend/src/pages/GamesPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-54"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-automatic-login-persistence-that-immediately-authenticates-users-when-they-return-to-the-application-if-they-have-an-active-internet-identity-session-without-requiring-manual-login",
+      "featureTitle": "Add automatic login persistence that immediately authenticates users when they return to the application if they have an active Internet Identity session, without requiring manual login",
+      "files": [
+        "frontend/src/components/LoginButton.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-55"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-reduce-the-number-of-clicks-required-for-internet-identity-authentication-by-implementing-a-one-click-login-flow-that-opens-the-internet-identity-authentication-window-immediately-when-the-user-clicks-the-sign-in-button",
+      "featureTitle": "Reduce the number of clicks required for Internet Identity authentication by implementing a one-click login flow that opens the Internet Identity authentication window immediately when the user clicks the sign-in button",
+      "files": [
+        "frontend/src/components/AccessDeniedScreen.tsx",
+        "frontend/src/components/LoginButton.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-56"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-clear-visual-feedback-during-the-authentication-process-with-loading-indicators-that-show-the-user-their-login-request-is-being-processed",
+      "featureTitle": "Add clear visual feedback during the authentication process with loading indicators that show the user their login request is being processed",
+      "files": [
+        "frontend/src/components/AccessDeniedScreen.tsx",
+        "frontend/src/components/LoginButton.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-57"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-loginbutton-component-in-the-app-tsx-header-to-be-more-prominent-with-larger-size-stronger-visual-emphasis-using-betika-green-colors-and-actionable-text-like-sign-in-to-play-instead-of-just-login",
+      "featureTitle": "Update the LoginButton component in the App.tsx header to be more prominent with larger size, stronger visual emphasis using Betika green colors, and actionable text like 'Sign In to Play' instead of just 'Login'",
       "files": [
         "frontend/src/App.tsx",
         "frontend/src/components/LoginButton.tsx"
@@ -18,69 +103,7 @@
         "http-outcalls@3.0.0"
       ],
       "testIds": [
-        "REQ-48"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-the-accessdeniedscreen-component-to-provide-a-more-streamlined-and-user-friendly-login-experience-with-clear-call-to-action-messaging",
-      "featureTitle": "Update the AccessDeniedScreen component to provide a more streamlined and user-friendly login experience with clear call-to-action messaging",
-      "files": [
-        "frontend/src/components/AccessDeniedScreen.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "http-outcalls@3.0.0"
-      ],
-      "testIds": [
-        "REQ-49"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-persistent-login-state-indication-that-shows-the-user-they-are-logged-in-displaying-their-identity-information-or-a-user-menu-in-the-application-header",
-      "featureTitle": "Add persistent login state indication that shows the user they are logged in, displaying their identity information or a user menu in the application header",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/UserMenu.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "http-outcalls@3.0.0"
-      ],
-      "testIds": [
-        "REQ-50"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-logout-option-that-is-easily-accessible-to-logged-in-users-allowing-them-to-sign-out-from-their-internet-identity-session",
-      "featureTitle": "Add a logout option that is easily accessible to logged-in users, allowing them to sign out from their Internet Identity session",
-      "files": [
-        "frontend/src/components/LoginButton.tsx",
-        "frontend/src/components/UserMenu.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "http-outcalls@3.0.0"
-      ],
-      "testIds": [
-        "REQ-51"
+        "REQ-58"
       ],
       "confidence": "high"
     }
